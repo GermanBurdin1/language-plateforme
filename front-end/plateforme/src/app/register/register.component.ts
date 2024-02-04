@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Определение интерфейса для данных формы
 interface FormData {
@@ -28,7 +28,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    // Проверка валидности формы перед отправкой
+
     if (this.registerForm.valid) {
       // Создание объекта formData с использованием интерфейса
       let formData: FormData = {
@@ -46,11 +46,15 @@ export class RegisterComponent {
         formData.login = emailOrLogin;
       }
 
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
       // Отправка данных на сервер
-      this.http.post('URL_ВАШЕГО_PHP_СКРИПТА', formData).subscribe({
+      this.http.post('http://learn-lang-platform.local/back-end/AngularRequestsHandler.php', formData, { headers }).subscribe({
         next: (response) => console.log('Успех:', response),
         error: (error) => console.error('Ошибка:', error)
       });
+    }
+    else {
+      console.error('Форма невалидна:', this.registerForm.errors);
     }
   }
 }

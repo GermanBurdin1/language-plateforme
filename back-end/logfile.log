@@ -12,3 +12,29 @@ Received POST Request: null at 2024-02-03 20:03:59
 Error: SQLSTATE[HY093]: Invalid parameter number at 2024-02-03 20:03:59
 Received POST Request: null at 2024-02-03 20:04:00
 Error: SQLSTATE[HY093]: Invalid parameter number at 2024-02-03 20:04:00
+Received POST Request: null at 2024-02-04 09:08:44
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:08:44
+Received POST Request: null at 2024-02-04 09:15:33
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:15:33
+Received POST Request: null at 2024-02-04 09:20:13
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:20:13
+Received POST Request: null at 2024-02-04 09:22:07
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:22:07
+Received POST Request: null at 2024-02-04 09:26:44
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:26:44
+Received POST Request: null at 2024-02-04 09:42:00
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:42:00
+Received POST Request: null at 2024-02-04 09:50:34
+Error: Neither e-mail nor login was provided. at 2024-02-04 09:50:34
+Received POST Request: null at 2024-02-04 10:17:00
+Error: Neither e-mail nor login was provided. at 2024-02-04 10:17:00
+Received POST Request: null at 2024-02-04 10:17:15
+Error: Neither e-mail nor login was provided. at 2024-02-04 10:17:15
+Received POST Request: null at 2024-02-04 10:26:45
+Error: Neither e-mail nor login was provided. at 2024-02-04 10:26:45
+Received POST Request: null at 2024-02-04 10:26:58
+Error: Neither e-mail nor login was provided. at 2024-02-04 10:26:58
+Received POST Request: null at 2024-02-04 10:27:24
+Error: Neither e-mail nor login was provided. at 2024-02-04 10:27:24
+Received POST Request: {"password":"1zesfsdfsdfsdfsf","name":"V","login":"G"} at 2024-02-04 10:31:16
+Successful Registration: G at 2024-02-04 10:31:16
