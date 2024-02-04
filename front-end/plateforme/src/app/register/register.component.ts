@@ -17,6 +17,7 @@ interface FormData {
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  loginExists = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // Инициализация формы с полями
@@ -24,6 +25,20 @@ export class RegisterComponent {
       emailOrLogin: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       name: ['', Validators.required]
+    });
+  }
+
+  checkLoginExistence(login: string): void {
+    this.http.get<{ exists: boolean }>(`/path_to_your_api/check_login?login=${login}`).subscribe({
+      next: (response) => {
+        this.loginExists = response.exists;
+        if(this.loginExists) {
+          this.registerForm.controls['emailOrLogin'].setErrors({ 'loginExists': true });
+        }
+      },
+      error: (error) => {
+        console.error('Ошибка при проверке логина:', error);
+      }
     });
   }
 
