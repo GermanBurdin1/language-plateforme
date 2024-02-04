@@ -5,7 +5,7 @@
         <div class="form-group mb-3">
           <label for="emailOrLogin" class="form-label">Email или логин:</label>
           <input type="text" id="emailOrLogin" formControlName="emailOrLogin" class="form-control" required (blur)="checkLoginExistence(registerForm.value.emailOrLogin)">
-          <div *ngIf="loginExists" class="alert alert-danger mt-2">
+          <div *ngIf="registerForm.controls['emailOrLogin'].errors?.['loginExists']" class="alert alert-danger mt-2">
             Such a login already exists, please think of another login.
           </div>
         </div>

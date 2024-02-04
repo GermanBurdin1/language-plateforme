@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 
 interface FormData {
   e_mail?: string;
@@ -33,18 +33,21 @@ export class RegisterComponent implements OnInit {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap(value => this.checkLoginExistence(value))
-    ).subscribe(exists => this.loginExists = exists);
+    ).subscribe(exists => {
+      this.loginExists = exists;
+      if (exists) {
+        // Установка ошибки формы
+        this.registerForm.controls['emailOrLogin'].setErrors({ 'loginExists': true });
+      } else {
+        // Очистка ошибки формы, если логин не существует
+        this.registerForm.controls['emailOrLogin'].setErrors(null);
+      }
+    });
   }
 
   checkLoginExistence(login: string): Observable<boolean> {
-    return this.http.get<{ exists: boolean }>(`http://learn-lang-platform.local/back-end/AngularRequestsHandler.php?login=${login}`).pipe(
-      switchMap(response => {
-        if (response.exists) {
-          this.registerForm.controls['emailOrLogin'].setErrors({ 'loginExists': true });
-        }
-        return [response.exists];
-      })
-    );
+    return this.http.get<{ exists: boolean }>(`http://learn-lang-platform.local/back-end/AngularRequestsHandler.php?login=${login}`)
+      .pipe(map(response => response.exists));
   }
 
   onSubmit() {

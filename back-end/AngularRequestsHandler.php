@@ -1,20 +1,38 @@
 <?php
-file_put_contents('php_input_debug.txt', file_get_contents('php://input'));
+// Заголовки для CORS и JSON
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
+// Обработка предзапроса CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
-// Дополнительный блок кода для обработки GET-запроса на проверку уникальности логина
+// Параметры подключения к базе данных
+$host = 'localhost';
+$db = 'plateforme_lang';
+$user = 'votre_user'; // Убедитесь, что это правильные учетные данные
+$pass = ''; // Убедитесь, что это правильный пароль
+$charset = 'utf8mb4';
+
+// DSN (Data Source Name)
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+// Настройки для PDO
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false,
+];
+
+// Подключение к базе данных
+$pdo = new PDO($dsn, $user, $pass, $options);
+
+// Обработка GET-запроса для проверки уникальности логина
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
     $loginToCheck = $_GET['login'];
-    
-    // Подключение к базе данных
-    $pdo = new PDO($dsn, $user, $pass, $options);
-
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE login = :login");
     $stmt->execute([':login' => $loginToCheck]);
     $exists = $stmt->fetchColumn() > 0;
@@ -22,19 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
     echo json_encode(['exists' => $exists]);
     exit;
 }
-
-$host = 'localhost';
-$db = 'plateforme_lang';
-$user = 'votre_user';
-$pass = '';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-];
 
 $logFile = './logfile.log';
 

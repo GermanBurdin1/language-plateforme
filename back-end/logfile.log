@@ -38,3 +38,25 @@ Received POST Request: null at 2024-02-04 10:27:24
 Error: Neither e-mail nor login was provided. at 2024-02-04 10:27:24
 Received POST Request: {"password":"1zesfsdfsdfsdfsf","name":"V","login":"G"} at 2024-02-04 10:31:16
 Successful Registration: G at 2024-02-04 10:31:16
+Received POST Request: {"password":"&\u00e9\"'(-\u00e8_","name":"Gerich","e_mail":"germanburdin@laposte.net"} at 2024-02-04 10:59:11
+Successful Registration: germanburdin@laposte.net at 2024-02-04 10:59:11
+Received POST Request: {"password":"eeeeeeeeeeeeeeeeeeeeee","name":"f","login":"V"} at 2024-02-04 16:44:45
+Successful Registration: V at 2024-02-04 16:44:45
+Received POST Request: {"password":"eeeeeeeeeeeeeeeeeeeeee","name":"f","login":"G"} at 2024-02-04 16:45:13
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G' pour la clef 'person.login' at 2024-02-04 16:45:13
+Received POST Request: {"password":"ddddddddddddddd","name":"German","login":"G"} at 2024-02-04 16:49:12
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G' pour la clef 'person.login' at 2024-02-04 16:49:12
+Received POST Request: {"password":"ffffffffffffff","name":"f","login":"G"} at 2024-02-04 16:54:05
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G' pour la clef 'person.login' at 2024-02-04 16:54:05
+Received POST Request: {"password":"ffffffffffffff","name":"f","login":"G "} at 2024-02-04 16:54:25
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G ' pour la clef 'person.login' at 2024-02-04 16:54:25
+Received POST Request: null at 2024-02-04 17:04:16
+Error: Neither e-mail nor login was provided. at 2024-02-04 17:04:16
+Received POST Request: {"password":"\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b\u044b","name":"\u0430","login":"E"} at 2024-02-04 17:05:17
+Successful Registration: E at 2024-02-04 17:05:17
+Received POST Request: {"password":"\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b","name":"\u0432","login":"\u0431"} at 2024-02-04 17:05:40
+Successful Registration: б at 2024-02-04 17:05:40
+Received POST Request: {"password":"\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b","name":"\u0432","login":"G"} at 2024-02-04 17:07:19
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G' pour la clef 'person.login' at 2024-02-04 17:07:19
+Received POST Request: {"password":"\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b\u043b","name":"\u0430","login":"G"} at 2024-02-04 17:15:11
+Error: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ 'G' pour la clef 'person.login' at 2024-02-04 17:15:11
