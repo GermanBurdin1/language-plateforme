@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm.get('emailOrLogin')?.valueChanges.pipe(
-      debounceTime(500),
       distinctUntilChanged(),
       switchMap(value => this.checkLoginExistence(value))
     ).subscribe(exists => {
