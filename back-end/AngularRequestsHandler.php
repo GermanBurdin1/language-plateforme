@@ -8,6 +8,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
+// Дополнительный блок кода для обработки GET-запроса на проверку уникальности логина
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
+    $loginToCheck = $_GET['login'];
+    
+    // Подключение к базе данных
+    $pdo = new PDO($dsn, $user, $pass, $options);
+
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE login = :login");
+    $stmt->execute([':login' => $loginToCheck]);
+    $exists = $stmt->fetchColumn() > 0;
+
+    echo json_encode(['exists' => $exists]);
+    exit;
+}
+
 $host = 'localhost';
 $db = 'plateforme_lang';
 $user = 'votre_user';

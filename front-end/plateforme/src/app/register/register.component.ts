@@ -29,7 +29,7 @@ export class RegisterComponent {
   }
 
   checkLoginExistence(login: string): void {
-    this.http.get<{ exists: boolean }>(`/path_to_your_api/check_login?login=${login}`).subscribe({
+    this.http.get<{ exists: boolean }>(`http://learn-lang-platform.local/back-end/AngularRequestsHandler.php?login=${login}`).subscribe({
       next: (response) => {
         this.loginExists = response.exists;
         if(this.loginExists) {
