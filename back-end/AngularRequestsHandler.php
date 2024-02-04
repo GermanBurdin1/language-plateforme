@@ -1,63 +1,59 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *'); // Разрешить запросы CORS, если Angular и PHP размещены на разных доменах
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-$host = 'localhost'; // Адрес сервера MySQL
-$db   = 'my_database'; // Имя базы данных
-$user = 'username'; // Имя пользователя
-$pass = 'password'; // Пароль
-$charset = 'utf8mb4'; // Кодировка
+$host = 'localhost';
+$db = 'plateforme_lang';
+$user = 'votre_user';
+$pass = '';
+$charset = 'utf8mb4';
 
-// DSN (Data Source Name) для подключения к MySQL
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-
-// Настройки для PDO
 $options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
+    PDO::ATTR_EMULATE_PREPARES => false,
 ];
 
-$logFile = '/path/to/yourlogfile.log'; // Укажите путь к вашему лог-файлу
+$logFile = './logfile.log';
 
 try {
-    // Подключение к базе данных
     $pdo = new PDO($dsn, $user, $pass, $options);
-    
-    // Получение данных от Angular
     $inputData = json_decode(file_get_contents('php://input'), true);
     
-    // Логирование входящего POST запроса
     $logMessage = "Received POST Request: " . json_encode($inputData) . " at " . date('Y-m-d H:i:s') . PHP_EOL;
     file_put_contents($logFile, $logMessage, FILE_APPEND);
 
-    // Подготовка SQL-запроса на основе данных от пользователя
-    // Например: "INSERT INTO users (email, password) VALUES (:email, :password)"
-    $stmt = $pdo->prepare("ВАШ SQL ЗАПРОС ЗДЕСЬ"); 
-    
-    // Привязка полученных значений к параметрам запроса
-    foreach ($inputData as $key => $value) {
-        $stmt->bindValue(':'.$key, $value);
+    $email = isset($inputData['e_mail']) ? $inputData['e_mail'] : null;
+    $login = isset($inputData['login']) ? $inputData['login'] : null;
+    $password = $inputData['password'];
+    $name = $inputData['name'];
+
+    if (!empty($email)) {
+        $stmt = $pdo->prepare("INSERT INTO person (e_mail, password, name) VALUES (:e_mail, :password, :name)");
+        $stmt->execute([':e_mail' => $email, ':password' => $password, ':name' => $name]);
+        $registrationInfo = $email;
+    } elseif (!empty($login)) {
+        $stmt = $pdo->prepare("INSERT INTO person (login, password, name) VALUES (:login, :password, :name)");
+        $stmt->execute([':login' => $login, ':password' => $password, ':name' => $name]);
+        $registrationInfo = $login;
+    } else {
+        // Обработка ошибки, если и e-mail, и логин не предоставлены
+        throw new Exception("Neither e-mail nor login was provided.");
     }
-    
-    // Выполнение запроса
-    $stmt->execute();
-    
-    // Логирование успешной регистрации
-    $successLogMessage = "Successful Registration: " . $inputData['email'] . " at " . date('Y-m-d H:i:s') . PHP_EOL;
+
+    $successLogMessage = "Successful Registration: " . $registrationInfo . " at " . date('Y-m-d H:i:s') . PHP_EOL;
     file_put_contents($logFile, $successLogMessage, FILE_APPEND);
     
-    // Отправка ответа обратно в Angular
     echo json_encode(['result' => 'success']);
     
-} catch (\PDOException $e) {
-    // Логирование ошибки
+} catch (Exception $e) {
     $errorLogMessage = "Error: " . $e->getMessage() . " at " . date('Y-m-d H:i:s') . PHP_EOL;
     file_put_contents($logFile, $errorLogMessage, FILE_APPEND);
 
-    // Возврат ошибки
     http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);
 }
+?>
