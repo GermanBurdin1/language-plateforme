@@ -1,5 +1,6 @@
 {
     "require": {
-        "dejurin/php-google-translate-for-free": "^1.0"
+        "dejurin/php-google-translate-for-free": "^1.0",
+        "phpmailer/phpmailer": "^6.9"
     }
 }
