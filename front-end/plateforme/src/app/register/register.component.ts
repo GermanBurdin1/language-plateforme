@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 interface FormData {
   e_mail?: string;
@@ -20,7 +22,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loginExists = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
       emailOrLogin: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -65,11 +67,11 @@ export class RegisterComponent implements OnInit {
 
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
       this.http.post('http://learn-lang-platform.local/back-end/AngularRequestsHandler.php', formData, { headers }).subscribe({
-        next: (response) => console.log('Успех:', response),
-        error: (error) => console.error('Ошибка:', error)
+        next: (response) => {console.log('Success:', response); this.router.navigate(['/confirmation'])},
+        error: (error) => console.error('Erreur:', error)
       });
     } else {
-      console.error('Форма невалидна:', this.registerForm.errors);
+      console.error('Форма на валидна :', this.registerForm.errors);
     }
   }
 }
