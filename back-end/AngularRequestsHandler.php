@@ -1,5 +1,7 @@
 <?php
 // Заголовки для CORS и JSON
+require 'db.php';
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -9,26 +11,6 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
-
-// Параметры подключения к базе данных
-$host = 'localhost';
-$db = 'plateforme_lang';
-$user = 'votre_user'; // Убедитесь, что это правильные учетные данные
-$pass = ''; // Убедитесь, что это правильный пароль
-$charset = 'utf8mb4';
-
-// DSN (Data Source Name)
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-
-// Настройки для PDO
-$options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-];
-
-// Подключение к базе данных
-$pdo = new PDO($dsn, $user, $pass, $options);
 
 // Обработка GET-запроса для проверки уникальности логина
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['e_mail'])) {
