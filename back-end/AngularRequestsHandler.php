@@ -31,8 +31,8 @@ $options = [
 $pdo = new PDO($dsn, $user, $pass, $options);
 
 // Обработка GET-запроса для проверки уникальности логина
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email'])) {
-    $emailToCheck = $_GET['email'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['e_mail'])) {
+    $emailToCheck = $_GET['e_mail'];
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE e_mail = :email");
     $stmt->execute([':email' => $emailToCheck]);
     $exists = $stmt->fetchColumn() > 0;
@@ -41,11 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email'])) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
+    $loginToCheck = $_GET['login'];
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE login = :login");
+    $stmt->execute([':login' => $loginToCheck]);
+    $loginExists = $stmt->fetchColumn() > 0;
+
+    echo json_encode(['exists' => $loginExists]);
+    exit;
+}
+
 $logFile = './logfile.log';
 
 try {
     $inputData = json_decode(file_get_contents('php://input'), true);
-    $email = $inputData['email'] ?? null;
+    $email = $inputData['e_mail'] ?? null;
     $login = $inputData['login'] ?? null;
     $password = $inputData['password'];
     $name = $inputData['name'];
