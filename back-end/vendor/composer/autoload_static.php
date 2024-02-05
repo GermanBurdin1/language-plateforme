@@ -4,9 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit294215441054243f7604e5c81e007107
+class ComposerStaticInitcc09c5ef818b186384836f14c845e711
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'D' => 
         array (
             'Dejurin\\' => 8,
@@ -14,6 +18,10 @@ class ComposerStaticInit294215441054243f7604e5c81e007107
     );
 
     public static $prefixDirsPsr4 = array (
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'Dejurin\\' => 
         array (
             0 => __DIR__ . '/..' . '/dejurin/php-google-translate-for-free/src',
@@ -27,9 +35,9 @@ class ComposerStaticInit294215441054243f7604e5c81e007107
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit294215441054243f7604e5c81e007107::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit294215441054243f7604e5c81e007107::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit294215441054243f7604e5c81e007107::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcc09c5ef818b186384836f14c845e711::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcc09c5ef818b186384836f14c845e711::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcc09c5ef818b186384836f14c845e711::$classMap;
 
         }, null, ClassLoader::class);
     }
