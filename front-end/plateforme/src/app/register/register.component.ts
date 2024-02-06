@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { passwordComplexityValidator } from '../utils/validators';
+import { emailFormatValidator, emailUniqueValidator, loginUniqueValidator } from '../utils/validators';
+
 
 
 interface FormData {
@@ -23,11 +25,12 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loginExists = false;
   emailExists = false;
+  attemptedSubmit = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
-      e_mail: ['', [Validators.required, Validators.email]],
-      login: ['', [Validators.required]],
+      e_mail: ['', [Validators.required, Validators.email, emailFormatValidator()], [emailUniqueValidator(this.checkEmailExistence.bind(this))]],
+      login: ['', [Validators.required],[loginUniqueValidator(this.checkLoginExistence.bind(this))]],
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required]
     });
@@ -39,7 +42,7 @@ export class RegisterComponent implements OnInit {
       switchMap(value => this.checkLoginExistence(value))
     ).subscribe(exists => {
       this.loginExists = exists;
-      this.registerForm.controls['login'].setErrors(exists ? { 'loginExists': true } : null);
+      this.registerForm.controls['login'].updateValueAndValidity();
     });
 
     this.registerForm.get('e_mail')?.valueChanges.pipe(
@@ -47,9 +50,8 @@ export class RegisterComponent implements OnInit {
       switchMap(value => this.checkEmailExistence(value))
     ).subscribe(exists => {
       this.emailExists = exists;
-      this.registerForm.controls['e_mail'].setErrors(exists ? { 'emailExists': true } : null);
+      this.registerForm.controls['e_mail'].updateValueAndValidity();
     });
-
   }
 
   checkLoginExistence(login: string): Observable<boolean> {
@@ -63,7 +65,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registerForm.valid) {
+    this.attemptedSubmit = true;
+    if (this.registerForm.valid && !this.emailExists && !this.loginExists) {
       let formData: FormData = {
         e_mail: this.registerForm.value.e_mail,
         login: this.registerForm.value.login,
@@ -72,18 +75,27 @@ export class RegisterComponent implements OnInit {
       };
 
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
-      this.http.post('http://learn-lang-platform.local/back-end/AngularRequestsHandler.php', formData, { headers }).subscribe({
+      this.http.post<any>('http://learn-lang-platform.local/back-end/AngularRequestsHandler.php', formData, { headers }).subscribe({
         next: (response) => {
-          console.log('Успех:', response);
-          this.router.navigate(['/confirmation']);
+          if (response.error) {
+            if (response.error === 'Such an email already exists, please use another email.') {
+              this.emailExists = true;
+            } else {
+              console.error('Ошибка:', response.error);
+            }
+          } else {
+            // Перенаправление на страницу подтверждения
+            console.log('Успех:', response);
+            this.router.navigate(['/confirmation']);
+          }
         },
         error: (error) => {
-          console.error('Ошибка:', error);
+          console.error('Ошибка при отправке данных:', error);
         }
       });
-    } else {
-      console.error('Форма невалидна:', this.registerForm.errors);
-    }
+  } else {
+    console.error('Форма невалидна:', this.registerForm.errors);
   }
+}
 }
 
