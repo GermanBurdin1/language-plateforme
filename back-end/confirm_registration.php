@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -38,4 +38,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['e_mail'])) {
 } else {
     echo 'Ошибка: Email не предоставлен.';
 }
-?>
+?> -->
