@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { passwordComplexityValidator } from '../utils/validators';
 
 
 interface FormData {
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       e_mail: ['', [Validators.required, Validators.email]],
       login: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required]
     });
   }
