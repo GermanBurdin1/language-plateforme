@@ -1,54 +1,41 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-// Create a new PHPMailer instance
-$mail = new PHPMailer;
-
-// Enable verbose debug output
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-// Set up the SMTP server
-$mail->isSMTP();
-$mail->Host = 'smtp.example.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'your_email@example.com';
-$mail->Password = 'your_password';
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-
-// Set up the sender
-$mail->setFrom('your_email@example.com', 'Your Name');
-
-try {
-    $verificationToken = bin2hex(random_bytes(16)); // Генерируем уникальный токен
-
-    // Подготавливаем запрос на вставку данных с токеном верификации
-    $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, verification_token) VALUES (:e_mail, :login, :password, :name, :verification_token)");
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['e_mail'])) {
+    // Фильтрация и очистка полученных данных
+    $email = filter_var($_POST['e_mail'], FILTER_SANITIZE_EMAIL);
     
-    // Выполняем запрос с токеном верификации
-    $stmt->execute([
-        ':e_mail' => $email,
-        ':login' => $login,
-        ':password' => $password,
-        ':name' => $name,
-        ':verification_token' => $verificationToken
-    ]);
-} catch (PDOException $e) {
-    echo "Ошибка: " . $e->getMessage(); // Выводим сообщение об ошибке
-    // Дополнительные действия при ошибке, например, логирование
-}
+    // Создаем новый экземпляр PHPMailer
+    $mail = new PHPMailer(true);
 
-// Send email with verification token
-$mail->addAddress($email);
-$mail->Subject = 'Подтверждение регистрации';
-$mail->Body = 'Для завершения регистрации, перейдите по следующей ссылке: ' . 'http://example.com/verify.php?token=' . $verificationToken;
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.example.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'your_email@example.com';
+        $mail->Password = 'your_password';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        
+        // Recipients
+        $mail->setFrom('your_email@example.com', 'Your Name');
+        $mail->addAddress($email); // Добавляем получателя
 
-if ($mail->send()) {
-    echo "Письмо с инструкциями по подтверждению регистрации отправлено на вашу электронную почту.";
+        // Генерация токена и подготовка тела письма
+        $verificationToken = bin2hex(random_bytes(16)); // Генерируем уникальный токен
+        $mail->isHTML(true); // Устанавливаем формат письма как HTML
+        $mail->Subject = 'Подтверждение регистрации';
+        $mail->Body = "Для завершения регистрации, пожалуйста, перейдите по следующей ссылке: http://example.com/verify.php?token={$verificationToken}";
+        $mail->send();
+        echo 'Сообщение было отправлено.';
+    } catch (Exception $e) {
+        echo "Сообщение не было отправлено. Ошибка: {$mail->ErrorInfo}";
+    }
 } else {
-    echo "Ошибка отправки письма: " . $mail->ErrorInfo;
+    echo 'Ошибка: Email не предоставлен.';
 }
+?>
