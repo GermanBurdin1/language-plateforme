@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { passwordComplexityValidator } from '../utils/validators';
-import { emailFormatValidator, emailUniqueValidator, loginUniqueValidator } from '../utils/validators';
+import { emailFormatValidator, emailUniqueValidator, loginUniqueValidator, loginValidator } from '../utils/validators';
 
 
 
@@ -31,7 +31,11 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
       e_mail: ['', [Validators.required, Validators.email, emailFormatValidator()], [emailUniqueValidator(this.checkEmailExistence.bind(this))]],
-      login: ['', [Validators.required],[loginUniqueValidator(this.checkLoginExistence.bind(this))]],
+      login: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        loginValidator()
+      ], [loginUniqueValidator(this.checkLoginExistence.bind(this))]],
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required]
     });

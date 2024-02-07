@@ -2,6 +2,8 @@ import { AbstractControl, ValidationErrors, AsyncValidatorFn, ValidatorFn } from
 import { Observable, of } from 'rxjs';
 import { debounceTime, map, catchError, switchMap } from 'rxjs/operators';
 
+
+
 export function passwordComplexityValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
@@ -60,3 +62,34 @@ export function loginUniqueValidator(checkLoginExistence: (login: string) => Obs
     );
   };
 }
+
+interface LoginValidationErrors {
+  minLength?: { requiredLength: number, actualLength: number };
+  startsWithLetter?: boolean;
+  alphanumeric?: boolean;
+  hasLettersAndNumbers?: boolean;
+}
+
+export function loginValidator(): ValidatorFn {
+  return (control: AbstractControl): LoginValidationErrors | null => {
+    const value = control.value || '';
+    const errors: LoginValidationErrors = {};
+
+    if (value.length < 5) {
+      errors.minLength = { requiredLength: 5, actualLength: value.length };
+    }
+    if (!/^[A-Za-z].*/.test(value)) {
+      errors.startsWithLetter = true;
+    }
+    if (!/^[A-Za-z0-9]+$/.test(value)) {
+      errors.alphanumeric = true;
+    }
+    if (!/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/.test(value)) {
+      errors.hasLettersAndNumbers = true;
+    }
+
+    return Object.keys(errors).length > 0 ? errors : null;
+  };
+}
+
+
