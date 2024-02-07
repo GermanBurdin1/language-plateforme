@@ -21,17 +21,27 @@
         </div>
         <div class="form-group mb-4">
           <label for="password" class="form-label">Password:</label>
-          <input type="password" id="password" formControlName="password" class="form-control" [class.is-invalid]="registerForm.get('password')?.invalid">
-<div *ngIf="registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
-            This password is already in use. Please choose another password.
-          </div>
-          <div *ngIf="registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
-            The password must contain 12 characters and must consist of four different character types: uppercase letters, lowercase letters, numbers, and punctuation marks or special characters (€, #...)..
+          <input type="password" id="password" formControlName="password" class="form-control"
+          [class.is-invalid]="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || attemptedSubmit)">
+          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']">
+              Password is required.
+            </div>
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+              Password must be at least 12 characters long.
+            </div>
+            <div *ngIf="registerForm.get('password')?.errors?.['passwordComplexity']">
+              The password must contain uppercase, lowercase letters, numbers, and special characters.
+            </div>
           </div>
         </div>
         <div class="form-group mb-4">
           <label for="name" class="form-label">Name:</label>
-          <input type="text" id="name" formControlName="name" class="form-control" [class.is-invalid]="registerForm.get('name')?.invalid">
+          <input type="text" id="name" formControlName="name" class="form-control"
+          [class.is-invalid]="registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || attemptedSubmit)">
+          <div *ngIf="registerForm.controls['name'].touched && registerForm.controls['name'].invalid" class="alert alert-danger mt-2">
+            Name is required.
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
       </form>

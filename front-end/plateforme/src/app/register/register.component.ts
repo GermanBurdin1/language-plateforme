@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   loginExists = false;
   emailExists = false;
   attemptedSubmit = false;
+  passwordExists = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
@@ -66,6 +67,11 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.attemptedSubmit = true;
+
+    if (this.registerForm.invalid) {
+      // Обработка ошибок
+      return;
+    }
     if (this.registerForm.valid && !this.emailExists && !this.loginExists) {
       let formData: FormData = {
         e_mail: this.registerForm.value.e_mail,
