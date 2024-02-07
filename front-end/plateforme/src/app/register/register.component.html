@@ -21,8 +21,8 @@
         </div>
         <div class="form-group mb-4">
           <label for="password" class="form-label">Password:</label>
-          <input type="password" id="password" formControlName="password" class="form-control" [class.is-invalid]="registerForm.get('password')?.invalid && passwordExists">
-          <div *ngIf="registerForm.get('password')?.hasError('passwordUnique')" class="alert alert-danger mt-2">
+          <input type="password" id="password" formControlName="password" class="form-control" [class.is-invalid]="registerForm.get('password')?.invalid">
+<div *ngIf="registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
             This password is already in use. Please choose another password.
           </div>
           <div *ngIf="registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group mb-4">
           <label for="name" class="form-label">Name:</label>
-          <input type="text" id="name" formControlName="name" class="form-control" [class.is-invalid]="registerForm.get('name')?.invalid && nameExists">
+          <input type="text" id="name" formControlName="name" class="form-control" [class.is-invalid]="registerForm.get('name')?.invalid">
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
       </form>

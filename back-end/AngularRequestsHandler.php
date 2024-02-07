@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         try {
+            $verificationToken = bin2hex(random_bytes(16));
             $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, verification_token) VALUES (:e_mail, :login, :password, :name, :verification_token)");
             $stmt->execute([
                 ':e_mail' => $email,
