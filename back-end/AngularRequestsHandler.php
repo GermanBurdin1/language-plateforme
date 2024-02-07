@@ -94,19 +94,19 @@ function sendVerificationEmail($email, $verificationToken) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.example.com';
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'your_email@example.com';
-        $mail->Password = 'your_password';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Username = 'germanburdin1@gmail.com';
+        $mail->Password = 'sqpbwdpzsubrfzka';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
 
-        $mail->setFrom('your_email@example.com', 'Your Name');
+        $mail->setFrom('germanburdin1@gmail.com', 'Universe Languages');
         $mail->addAddress($email);
 
         $mail->isHTML(true);
         $mail->Subject = 'Подтверждение регистрации';
-        $mail->Body = "Для завершения регистрации, пожалуйста, перейдите по следующей ссылке: http://example.com/verify.php?token={$verificationToken}";
+        $mail->Body = "Для завершения регистрации, пожалуйста, перейдите по следующей ссылке: http://learn-lang-platform.local/back-end/verify.php?token={$verificationToken}";
 
         $mail->send();
     } catch (Exception $e) {
