@@ -105,7 +105,7 @@ function sendVerificationEmail($email, $verificationToken) {
         $mail->addAddress($email);
 
         $mail->isHTML(true);
-        $mail->Subject = 'Подтверждение регистрации';
+        $mail->Subject = 'Registration confirmation';
         $mail->Body = "Для завершения регистрации, пожалуйста, перейдите по следующей ссылке: http://learn-lang-platform.local/back-end/verify.php?token={$verificationToken}";
 
         $mail->send();
