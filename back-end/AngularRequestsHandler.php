@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $inputData['e_mail'] ?? null;
     $login = $inputData['login'] ?? null;
     $password = $inputData['password'];
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $name = $inputData['name'];
 
     if (!empty($email) && !empty($login)) {
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([
                 ':e_mail' => $email,
                 ':login' => $login,
-                ':password' => $password,
+                ':password' => $hashedPassword,
                 ':name' => $name,
                 ':verification_token' => $verificationToken
             ]);
