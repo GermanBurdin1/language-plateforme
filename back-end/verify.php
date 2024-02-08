@@ -15,7 +15,7 @@ try {
             $updateStmt->execute([':token' => $token]);
 
             // Перенаправление пользователя на компонент логина
-            header('Location: http://learn-lang-platform.local/login');
+            header('Location: http://localhost:4200/login');
             exit;
         } else {
             echo "Неверный токен верификации.";
