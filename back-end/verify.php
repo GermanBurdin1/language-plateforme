@@ -14,7 +14,9 @@ try {
             $updateStmt = $pdo->prepare("UPDATE person SET is_verified = 1 WHERE verification_token = :token");
             $updateStmt->execute([':token' => $token]);
 
-            echo "Ваш аккаунт успешно подтвержден.";
+            // Перенаправление пользователя на компонент логина
+            header('Location: http://learn-lang-platform.local/login');
+            exit;
         } else {
             echo "Неверный токен верификации.";
         }
