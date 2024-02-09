@@ -10,8 +10,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'confirmation', component: ConfirmationComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({
