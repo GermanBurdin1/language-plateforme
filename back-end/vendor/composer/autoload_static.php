@@ -11,6 +11,10 @@ class ComposerStaticInitcc09c5ef818b186384836f14c845e711
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Dejurin\\' => 8,
@@ -21,6 +25,10 @@ class ComposerStaticInitcc09c5ef818b186384836f14c845e711
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Dejurin\\' => 
         array (
