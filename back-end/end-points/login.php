@@ -1,8 +1,6 @@
-<!-- login.php содержит только код, который создает и возвращает JWT токен: -->
-
 <?php
-require 'db.php'; // Подключение к базе данных
-require 'vendor/autoload.php';
+require '../db.php'; // Подключение к базе данных
+require '../vendor/autoload.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -11,9 +9,19 @@ use GuzzleHttp\Client;
 // Ключ, используемый для подписи JWT. Должен быть сохранен в безопасном месте!
 $key = 'Jefjimfu09!';
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Предзапрос CORS успешен
+    http_response_code(204); // No Content
+    exit;
+}
+header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
-    $email = $inputData['email'] ?? null;
+    $email = $inputData['e_mail'] ?? null;
     $password = $inputData['password'] ?? null;
 
     // Предположим, что здесь происходит проверка учетных данных пользователя...
@@ -30,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'aud' => 'http://learn-lang-platform.local', // Аудитория
             'iat' => $issuedAt, // Время выдачи
             'exp' => $expirationTime, // Время истечения
-            'sub' => $user['id'], // Идентификатор пользователя
+            'sub' => $user['Id_person'], // Идентификатор пользователя
         ];
         error_log(print_r($payload, true));//
         $jwt = JWT::encode($payload, $key, 'HS256');
@@ -52,20 +60,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Она должна возвращать данные пользователя, если учетные данные верны, или null, если нет
 function authenticateUser($email, $password) {
     global $pdo; // Используем глобальный объект PDO для доступа к базе данных
-
+    error_log("Authenticating user with email: $email\n", 3, "../logfile.log");
     // Подготовленный запрос для избежания SQL-инъекций
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT * FROM person WHERE e_mail = :email");
     $stmt->execute(['email' => $email]);
     
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Если пользователь найден и пароли совпадают
-        return $user; // Возвращаем данные пользователя
+    if ($user) {
+        error_log("Found user: " . json_encode($user) . "\n", 3, "../logfile.log");
+        if (password_verify($password, $user['password'])) {
+            error_log("User authenticated successfully: " . json_encode($user) . "\n", 3, "../logfile.log");
+            // Если пароли совпадают
+            return $user;
+        } else {
+            error_log("Password does not match for user: " . json_encode($user) . "\n", 3, "../logfile.log");
+            // Неверный пароль
+            return null;
+        }
     } else {
-        // Неверные учетные данные
+        error_log("No user found with email: $email\n", 3, "../logfile.log");
+        // Пользователь не найден
         return null;
     }
 }
+
 
 ?>

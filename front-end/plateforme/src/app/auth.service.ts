@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login.php`, { email, password });
+    return this.http.post<any>(`${this.apiUrl}/login.php`, {e_mail: email, password });
   }
 
   register(userDetails: any): Observable<any> {
@@ -32,3 +32,4 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 }
+

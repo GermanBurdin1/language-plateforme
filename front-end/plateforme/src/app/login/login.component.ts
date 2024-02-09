@@ -28,17 +28,25 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.password
       ).subscribe({
         next: (response) => {
-          // Сохраните полученный токен
-          localStorage.setItem('token', response.token);
-          // Перенаправьте на страницу /home
-          this.router.navigate(['/home']);
+          if (response && response.token) {
+            // Сохраняем полученный токен
+            localStorage.setItem('token', response.token);
+            // Перенаправляем на страницу /home
+            this.router.navigate(['/home']);
+          } else {
+            // Обрабатываем случай, когда в ответе нет токена
+            console.error('Token is missing in the response');
+            // Здесь можно добавить логику для информирования пользователя об ошибке
+          }
         },
         error: (err) => {
-          // Обработайте возможные ошибки аутентификации
+          // Обрабатываем ошибки аутентификации
           console.error(err);
+          // Здесь можно добавить логику для информирования пользователя о проблеме
         }
       });
     }
   }
+
 }
 
