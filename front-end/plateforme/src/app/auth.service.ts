@@ -36,8 +36,8 @@ export class AuthService {
     );;
   }
 
-  getUserName(token: string): Observable<string> {
-    const getUserUrl = 'learn-lang-platform.local/back-end/end-points/user-details/getUserName.php';
+  getUserName(token: string): Observable<any> {
+    const getUserUrl = 'http://learn-lang-platform.local/back-end/end-points/user-details/getUserName.php';
     return this.http.get<any>(getUserUrl, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -45,7 +45,7 @@ export class AuthService {
     })
     .pipe(
       catchError(this.handleError)
-    );;
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,5 +1,6 @@
 <?php
-require 'vendor/autoload.php';
+require '../../db.php';
+require '../../vendor/autoload.php';
 use Firebase\JWT\JWT;
 
 header('Access-Control-Allow-Origin: *');
@@ -23,13 +24,10 @@ try {
         $decoded = JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
 
         // Проверяем, содержит ли токен id пользователя в полезной нагрузке
-        if (isset($decoded->Id_person)) {
-            // Подключение к базе данных
-            $pdo = new PDO('mysql:host=localhost;dbname=my_database', 'username', 'password');
-            
-            // Получаем имя пользователя из базы данных по его id
+        if (isset($decoded->sub)) {
+            $userId = $decoded->sub;
             $stmt = $pdo->prepare("SELECT name FROM person WHERE Id_person = :userId");
-            $stmt->execute([':userId' => $decoded->Id_person]);
+            $stmt->execute([':userId' => $userId]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {

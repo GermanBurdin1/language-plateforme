@@ -18,8 +18,9 @@ export class DashboardComponent implements OnInit {
     if (token) {
       // Если токен не пустой, получаем имя пользователя с использованием полученного токена
       this.authService.getUserName(token).subscribe({
-        next: (userName: string) => {
-          this.name = userName;
+        next: (response) => {
+          // Убедитесь, что здесь вы обращаетесь к свойству name объекта response
+          this.name = response.name;
         },
         error: (error) => {
           console.error('Error getting user name:', error);
@@ -29,4 +30,5 @@ export class DashboardComponent implements OnInit {
       console.error('Token is empty.');
     }
   }
+
 }
