@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $inputData['email'];
     $login = $inputData['login'];
     $password = $inputData['password'];
+    $role = $inputData['role'];
 
     // Создаем HTTP клиент
     $client = new Client(['base_uri' => 'http://learn-lang-platform.local']);

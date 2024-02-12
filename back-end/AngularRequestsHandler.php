@@ -46,8 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $inputData['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $name = $inputData['name'];
+    $role = $inputData['role'];
 
-    if (!empty($email) && !empty($login)) {
+    if (!empty($email) && !empty($login) && !empty($role)) {
         $checkEmailStmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE e_mail = :e_mail");
         $checkEmailStmt->execute([':e_mail' => $email]);
         if ($checkEmailStmt->fetchColumn() > 0) {
@@ -66,13 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $verificationToken = bin2hex(random_bytes(16));
-            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, verification_token) VALUES (:e_mail, :login, :password, :name, :verification_token)");
+            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, verification_token, role) VALUES (:e_mail, :login, :password, :name, :verification_token, :role)");
             $stmt->execute([
                 ':e_mail' => $email,
                 ':login' => $login,
                 ':password' => $hashedPassword,
                 ':name' => $name,
-                ':verification_token' => $verificationToken
+                ':verification_token' => $verificationToken,
+                ':role' => $role
             ]);
         
             sendVerificationEmail($email, $verificationToken);
@@ -87,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        echo json_encode(['error' => 'Both email and login are required.']);
+        echo json_encode(['error' => 'Both email,login and role are required.']);
     }
 }
 

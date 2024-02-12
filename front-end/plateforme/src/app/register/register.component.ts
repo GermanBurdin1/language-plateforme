@@ -14,6 +14,7 @@ interface FormData {
   login?: string;
   password: string;
   name: string;
+  role: 'student' | 'teacher';
 }
 
 @Component({
@@ -37,7 +38,8 @@ export class RegisterComponent implements OnInit {
         loginValidator()
       ], [loginUniqueValidator(this.checkLoginExistence.bind(this))]],
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      role: ['', Validators.required] // Добавляем валидацию на обязательное поле
     });
   }
 
@@ -81,7 +83,8 @@ export class RegisterComponent implements OnInit {
         e_mail: this.registerForm.value.e_mail,
         login: this.registerForm.value.login,
         password: this.registerForm.value.password,
-        name: this.registerForm.value.name
+        name: this.registerForm.value.name,
+        role: this.registerForm.value.role
       };
 
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
