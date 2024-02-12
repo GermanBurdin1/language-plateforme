@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'action' => 'register',
                 'email' => $email,
                 'login' => $login,
-                'password' => $password
+                'password' => $password,
+                'role' => $role
             ]
         ]);
 

@@ -33,7 +33,7 @@ export class VideoCallComponent implements OnInit {
     // Инициализацию можно оставить пустой или использовать для других целей
   }
 
-  // Объявлены как public, чтобы дать возможность вызывать их из DashboardComponent
+  // Объявлены как public, чтобы дать возможность вызывать их из TeacherDashboardComponent
   public async startCall(): Promise<void> {
     try {
       // Получаем токен из сервиса перед подключением к каналу
