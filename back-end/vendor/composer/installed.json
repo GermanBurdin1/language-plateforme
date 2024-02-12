@@ -1,6 +1,43 @@
 {
     "packages": [
         {
+            "name": "boogiefromzk/agora-token",
+            "version": "v1.0.1",
+            "version_normalized": "1.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/boogiefromzk/agora-token-php.git",
+                "reference": "70ba634c1b1a5d5d61fb5fdabe56ddc0dc996169"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/boogiefromzk/agora-token-php/zipball/70ba634c1b1a5d5d61fb5fdabe56ddc0dc996169",
+                "reference": "70ba634c1b1a5d5d61fb5fdabe56ddc0dc996169",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "time": "2023-03-04T12:01:54+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "BoogieFromZk\\AgoraToken\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "description": "Intended to make Agora Tools for PHP repository folder as a package installable with Composer.",
+            "support": {
+                "issues": "https://github.com/boogiefromzk/agora-token-php/issues",
+                "source": "https://github.com/boogiefromzk/agora-token-php/tree/v1.0.1"
+            },
+            "install-path": "../boogiefromzk/agora-token"
+        },
+        {
             "name": "dejurin/php-google-translate-for-free",
             "version": "1.0.0",
             "version_normalized": "1.0.0.0",

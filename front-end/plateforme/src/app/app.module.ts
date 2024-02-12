@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { VideoCallComponent } from './video-call/video-call.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     ConfirmationComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    VideoCallComponent
   ],
   imports: [
     BrowserModule,

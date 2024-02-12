@@ -33,13 +33,17 @@ class ComposerStaticInitcc09c5ef818b186384836f14c845e711
         array (
             'Dejurin\\' => 8,
         ),
+        'B' => 
+        array (
+            'BoogieFromZk\\AgoraToken\\' => 24,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -68,6 +72,10 @@ class ComposerStaticInitcc09c5ef818b186384836f14c845e711
         'Dejurin\\' => 
         array (
             0 => __DIR__ . '/..' . '/dejurin/php-google-translate-for-free/src',
+        ),
+        'BoogieFromZk\\AgoraToken\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/boogiefromzk/agora-token/src',
         ),
     );
 
