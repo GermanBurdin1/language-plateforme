@@ -21,6 +21,7 @@ export class VideoCallComponent implements OnInit {
   appId = 'a020b374553e4fac80325223fba38531'; // Замените на ваш App ID
   channelName = 'rtc_token'; // Замените на имя вашего канала
   token = ''; // Токен будет получен из сервиса
+  remoteVideos: ElementRef[] = [];
 
   @Output() callStarted = new EventEmitter<void>();
   @Output() callEnded = new EventEmitter<void>();
@@ -73,13 +74,30 @@ export class VideoCallComponent implements OnInit {
     this.agoraClient.on('user-published', async (user, mediaType) => {
       await this.agoraClient.subscribe(user, mediaType);
       console.log('Subscribe success');
-      if (mediaType === 'video') {
+
+      if (mediaType === 'video' && user.videoTrack) {
+        // Теперь мы проверяем, что user.videoTrack определен
         const remoteVideoTrack = user.videoTrack;
-        // Отображение видеопотока пользователя
-        // Здесь вам нужно реализовать логику для отображения видеопотока удаленного пользователя
+
+        const videoElement = document.createElement('video');
+        document.body.appendChild(videoElement); // или добавьте в другой элемент в DOM
+        remoteVideoTrack.play(videoElement);
+
+        this.remoteVideos.push(new ElementRef(videoElement));
       }
-      if (mediaType === 'audio') {
-        user.audioTrack?.play();
+
+      if (mediaType === 'audio' && user.audioTrack) {
+        // Аналогичная проверка для audioTrack
+        user.audioTrack.play();
+      }
+    });
+
+    this.agoraClient.on('user-unpublished', (user) => {
+      // Удаление видеоэлемента удаленного пользователя
+      const index = this.remoteVideos.findIndex(x => x.nativeElement.id === `video_${user.uid}`);
+      if (index !== -1) {
+        this.remoteVideos[index].nativeElement.remove();
+        this.remoteVideos.splice(index, 1);
       }
     });
   }
