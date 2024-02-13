@@ -31,8 +31,26 @@ export class LoginComponent implements OnInit {
           if (response && response.token) {
             // Сохраняем полученный токен
             localStorage.setItem('token', response.token);
-            // Перенаправляем на страницу /home
-            this.router.navigate(['/dashboard']);
+            // Здесь мы извлекаем токен из localStorage
+            const token = localStorage.getItem('token');
+            if (token) {
+              // Передаем токен как аргумент в getUserRole
+              this.authService.getUserRole(token).subscribe({
+                next: (role) => {
+                  if (role === 'student') {
+                    this.router.navigate(['/student-dashboard']);
+                  } else if (role === 'teacher') {
+                    this.router.navigate(['/teacher-dashboard']);
+                  }
+                },
+                error: (err) => {
+                  console.error('Error getting user role:', err);
+                }
+              });
+            } else {
+              // Обрабатываем случай, когда токен не был найден
+              console.error('Token is missing after login');
+            }
           } else {
             // Обрабатываем случай, когда в ответе нет токена
             console.error('Token is missing in the response');
@@ -47,6 +65,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
 
 }
 

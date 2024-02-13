@@ -1,5 +1,8 @@
 <?php
 // Заголовки для CORS и JSON
+
+ini_set('error_log', 'logfile.log');
+
 require 'db.php';
 require 'vendor/autoload.php';
 
@@ -10,6 +13,8 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
+// error_log(print_r([1, 2, 3], true), 3, "c:/users/germa/onedrive/bureau/projects/learn-lang-plateforme/logs/error.log");
 
 // Обработка предзапроса CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -41,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
+
+    error_log(print_r($inputData, true), 3, "c:/users/germa/onedrive/bureau/projects/learn-lang-plateforme/logs/error.log");
+    
     $email = $inputData['e_mail'] ?? null;
     $login = $inputData['login'] ?? null;
     $password = $inputData['password'];

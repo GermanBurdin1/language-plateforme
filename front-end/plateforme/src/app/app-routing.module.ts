@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'confirmation', component: ConfirmationComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'dashboard', component: TeacherDashboardComponent },
+  { path: 'teacher-dashboard', component: TeacherDashboardComponent },
   { path: 'student-dashboard', component: StudentDashboardComponent },
   { path: 'video-call', component: VideoCallComponent },
 ];

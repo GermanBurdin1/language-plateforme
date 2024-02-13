@@ -6,6 +6,7 @@ import { distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { passwordComplexityValidator } from '../utils/validators';
 import { emailFormatValidator, emailUniqueValidator, loginUniqueValidator, loginValidator } from '../utils/validators';
+import { AuthService } from '../auth.service';
 
 
 
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
   attemptedSubmit = false;
   passwordExists = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService) {
     this.registerForm = this.fb.group({
       e_mail: ['', [Validators.required, Validators.email, emailFormatValidator()], [emailUniqueValidator(this.checkEmailExistence.bind(this))]],
       login: ['', [
@@ -72,11 +73,19 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("hello");
     this.attemptedSubmit = true;
 
-    if (this.registerForm.invalid) {
-      // Обработка ошибок
-      return;
+    console.log('Валидность формы:', this.registerForm.valid);
+    console.log('Форма имеет ошибки:', this.registerForm.errors);
+
+  // Перед условием проверки на существование email и login
+  console.log('Email существует:', this.emailExists);
+  console.log('Login существует:', this.loginExists);
+
+  if (this.registerForm.invalid) {
+    console.error('Форма невалидна');
+    return;
     }
     if (this.registerForm.valid && !this.emailExists && !this.loginExists) {
       let formData: FormData = {
@@ -87,25 +96,26 @@ export class RegisterComponent implements OnInit {
         role: this.registerForm.value.role
       };
 
-      const headers = new HttpHeaders().set('Content-Type', 'application/json');
-      this.http.post<any>('http://learn-lang-platform.local/back-end/AngularRequestsHandler.php', formData, { headers }).subscribe({
+      this.authService.register(formData).subscribe({
         next: (response) => {
-          if (response.error) {
+          if (response === null) {
+            console.error('Ответ сервера null');
+          } else if (response.error) {
             if (response.error === 'Such an email already exists, please use another email.') {
               this.emailExists = true;
             } else {
               console.error('Ошибка:', response.error);
             }
           } else {
-            // Перенаправление на страницу подтверждения
-            console.log('Успех:', response);
+            localStorage.setItem('token', response.token);
             this.router.navigate(['/confirmation']);
           }
         },
-        error: (error) => {
-          console.error('Ошибка при отправке данных:', error);
+        error: (err) => {
+          console.error('Ошибка при обращении к серверу:', err);
         }
       });
+
   } else {
     console.error('Форма невалидна:', this.registerForm.errors);
   }
