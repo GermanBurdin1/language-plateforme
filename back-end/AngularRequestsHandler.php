@@ -2,7 +2,7 @@
 // Заголовки для CORS и JSON
 require 'db.php';
 require 'vendor/autoload.php';
-
+sadas
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
