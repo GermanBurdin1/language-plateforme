@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'confirmation', component: ConfirmationComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'dashboard', component: DashboardTeacherComponent },
+  { path: 'dashboard-teacher', component: DashboardTeacherComponent },
   { path: 'video-call', component: VideoCallComponent },
 ];
 

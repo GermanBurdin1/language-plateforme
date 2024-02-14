@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
             // Сохраняем полученный токен
             localStorage.setItem('token', response.token);
             // Перенаправляем на страницу /home
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard-teacher']);
           } else {
             // Обрабатываем случай, когда в ответе нет токена
             console.error('Token is missing in the response');
