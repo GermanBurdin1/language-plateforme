@@ -3,9 +3,9 @@ import { AuthService } from '../auth.service';
 import { VideoCallComponent } from '../video-call/video-call.component';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-dashboard-teacher',
+  templateUrl: './dashboard-teacher.component.html',
+  styleUrls: ['./dashboard-teacher.component.scss']
 })
 export class DashboardTeacherComponent implements OnInit {
   name: string = '';

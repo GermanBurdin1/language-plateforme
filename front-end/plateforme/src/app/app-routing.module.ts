@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardTeacherComponent } from './dashboard/dashboard.component'
+import { DashboardTeacherComponent } from './dashboard/dashboard-teacher.component'
 import { VideoCallComponent } from './video-call/video-call.component'
 
 const routes: Routes = [
