@@ -7,7 +7,7 @@ import { VideoCallComponent } from '../video-call/video-call.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardTeacherComponent implements OnInit {
   name: string = '';
   token: string | null = null;
 

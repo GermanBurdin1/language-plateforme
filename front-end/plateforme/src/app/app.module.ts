@@ -8,8 +8,9 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardTeacherComponent } from './dashboard/dashboard.component';
 import { VideoCallComponent } from './video-call/video-call.component';
+import { DashboardStudentComponent } from './dashboard/dashboard-student.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { VideoCallComponent } from './video-call/video-call.component';
     LoginComponent,
     ConfirmationComponent,
     HomeComponent,
-    DashboardComponent,
-    VideoCallComponent
+    DashboardTeacherComponent,
+    VideoCallComponent,
+    DashboardStudentComponent
   ],
   imports: [
     BrowserModule,
