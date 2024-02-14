@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,15 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login.php`, {e_mail: email, password })
     .pipe(
+      tap(response => {
+        // Предположим, что ответ содержит поля token и role
+        if (response.token && response.role) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role); // Сохраняем роль пользователя
+        }
+      }),
       catchError(this.handleError)
-    );;
+    );
   }
 
   register(userDetails: any): Observable<any> {
@@ -46,6 +53,10 @@ export class AuthService {
     .pipe(
       catchError(this.handleError)
     );
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('role');
   }
 
   private handleError(error: HttpErrorResponse) {

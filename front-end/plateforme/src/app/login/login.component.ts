@@ -27,15 +27,18 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.email,
         this.loginForm.value.password
       ).subscribe({
-        next: (response) => {
-          if (response && response.token) {
-            // Сохраняем полученный токен
-            localStorage.setItem('token', response.token);
-            // Перенаправляем на страницу /home
+        next: () => {
+          // После успешного входа получаем роль пользователя из localStorage
+          const role = this.authService.getUserRole();
+          if (role === 'teacher') {
+            // Редирект на дашборд учителя
             this.router.navigate(['/dashboard-teacher']);
+          } else if (role === 'student') {
+            // Редирект на дашборд студента
+            this.router.navigate(['/dashboard-student']);
           } else {
-            // Обрабатываем случай, когда в ответе нет токена
-            console.error('Token is missing in the response');
+            // Обработка неизвестной или отсутствующей роли
+            console.error('Unknown or missing role');
             // Здесь можно добавить логику для информирования пользователя об ошибке
           }
         },
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
 
 }
 

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $jwt = JWT::encode($payload, $key, 'HS256');
 
         // Отправляем токен пользователю
-        echo json_encode(['token' => $jwt]);
+        echo json_encode(['token' => $jwt, 'role' => $user['role']]);
     } else {
         // Неудачная аутентификация
         http_response_code(401);
