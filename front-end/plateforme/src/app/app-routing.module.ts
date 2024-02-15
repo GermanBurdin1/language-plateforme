@@ -7,6 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { DashboardTeacherComponent } from './dashboard/dashboard-teacher.component'
 import { VideoCallComponent } from './video-call/video-call.component';
 import { DashboardStudentComponent } from './dashboard/dashboard-student.component';
+import { LessonsComponent } from './dashboard/features/lessons/lessons.component';
+import { DictionaryComponent } from './dashboard/features/dictionary/dictionary.component';
+import { SettingsComponent } from './dashboard/features/settings/settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +18,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'dashboard-teacher', component: DashboardTeacherComponent },
-  { path: 'dashboard-student', component: DashboardStudentComponent },
+  { path: 'dashboard-student', component: DashboardStudentComponent,children: [
+    { path: 'lessons', component: LessonsComponent },
+    { path: 'dictionary', component: DictionaryComponent },
+    { path: 'settings', component: SettingsComponent }
+  ] },
   { path: 'video-call', component: VideoCallComponent },
 ];
 
