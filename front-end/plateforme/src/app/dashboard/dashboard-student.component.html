@@ -8,9 +8,9 @@
   <li class="nav-item">
     <a class="nav-link" routerLink="/dashboard-student/settings" routerLinkActive="active">Settings</a>
   </li>
-  <button type="button" class="btn btn-primary rounded-circle" style="position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; z-index: 1050;" data-toggle="modal" data-target="#studentSettingsModal">
-    <i class="fas fa-cog" style="font-size: 24px;"></i> <!-- Иконка настроек, убедитесь, что Font Awesome подключен -->
+  <!-- Исправлено для вызова метода openSettingsModal при клике -->
+  <button type="button" class="btn btn-primary rounded-circle position-fixed" style="right: 20px; top: 20px; width: 50px; height: 50px; z-index: 1050;" (click)="openSettingsModal()">
+    <i class="fas fa-cog"></i> <!-- Иконка настроек -->
   </button>
 </ul>
 <router-outlet></router-outlet>
-

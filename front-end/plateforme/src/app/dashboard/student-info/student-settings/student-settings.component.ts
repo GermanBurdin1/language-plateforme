@@ -1,20 +1,31 @@
 import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-student-settings',
   templateUrl: './student-settings.component.html',
-  styleUrl: './student-settings.component.scss'
+  styleUrls: ['./student-settings.component.scss']
 })
 export class StudentSettingsComponent {
-  // Данные студента для примера, замените этими данными ваше реальное состояние компонента
   student = {
-    name: 'Ivan',
-    email: 'ivanstudent90@mail.ru',
-    password: '2782',
-    location: 'Moscow',
-    nativeLanguage: 'Russian',
-    timezone: '03:09 (UTC+3)',
-    skype: 'Student\'s Skype',
-    zoom: 'Call link'
+    name: '',
+    email: '',
+    password: '',
+    location: '',
+    nativeLanguage: '',
+    timezone: '',
+    skype: '',
+    zoom: ''
   };
+
+  constructor(public activeModal: NgbActiveModal) {}
+
+  // Здесь может быть ваша дополнительная логика инициализации компонента
+
+  saveChanges() {
+    // Здесь должна быть логика для сохранения изменений
+    console.log('Saving changes', this.student);
+    // После сохранения изменений можно закрыть модальное окно
+    this.activeModal.close('Save click');
+  }
 }

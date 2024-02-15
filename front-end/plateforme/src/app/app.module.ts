@@ -15,6 +15,7 @@ import { DictionaryComponent } from './dashboard/features/dictionary/dictionary.
 import { SettingsComponent } from './dashboard/features/settings/settings.component';
 import { LessonsComponent } from './dashboard/features/lessons/lessons.component';
 import { StudentSettingsComponent } from './dashboard/student-info/student-settings/student-settings.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StudentSettingsComponent } from './dashboard/student-info/student-setti
     StudentSettingsComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
