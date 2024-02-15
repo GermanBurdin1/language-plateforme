@@ -1,8 +1,16 @@
-<div>
-  <ul>
-      <li><a routerLink="/dashboard-student/lessons" routerLinkActive="active">Мои уроки</a></li>
-      <li><a routerLink="/dashboard-student/dictionary" routerLinkActive="active">Словарь</a></li>
-      <li><a routerLink="/dashboard-student/settings" routerLinkActive="active">Настройки</a></li>
-  </ul>
-  <router-outlet></router-outlet>
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" routerLink="/dashboard-student/lessons" routerLinkActive="active">My lessons</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-student/dictionary" routerLinkActive="active">Dictionary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-student/settings" routerLinkActive="active">Settings</a>
+  </li>
+  <button type="button" class="btn btn-primary rounded-circle" style="position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; z-index: 1050;" data-toggle="modal" data-target="#studentSettingsModal">
+    <i class="fas fa-cog" style="font-size: 24px;"></i> <!-- Иконка настроек, убедитесь, что Font Awesome подключен -->
+  </button>
+</ul>
+<router-outlet></router-outlet>
 

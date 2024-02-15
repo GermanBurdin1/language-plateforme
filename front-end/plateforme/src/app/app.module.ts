@@ -14,6 +14,7 @@ import { DashboardStudentComponent } from './dashboard/dashboard-student.compone
 import { DictionaryComponent } from './dashboard/features/dictionary/dictionary.component';
 import { SettingsComponent } from './dashboard/features/settings/settings.component';
 import { LessonsComponent } from './dashboard/features/lessons/lessons.component';
+import { StudentSettingsComponent } from './dashboard/student-info/student-settings/student-settings.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LessonsComponent } from './dashboard/features/lessons/lessons.component
     DashboardStudentComponent,
     DictionaryComponent,
     SettingsComponent,
-    LessonsComponent
+    LessonsComponent,
+    StudentSettingsComponent
   ],
   imports: [
     BrowserModule,

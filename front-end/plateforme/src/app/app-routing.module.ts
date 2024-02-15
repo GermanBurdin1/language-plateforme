@@ -10,6 +10,7 @@ import { DashboardStudentComponent } from './dashboard/dashboard-student.compone
 import { LessonsComponent } from './dashboard/features/lessons/lessons.component';
 import { DictionaryComponent } from './dashboard/features/dictionary/dictionary.component';
 import { SettingsComponent } from './dashboard/features/settings/settings.component';
+import { StudentSettingsComponent } from './dashboard/student-info/student-settings/student-settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'dashboard-student', component: DashboardStudentComponent,children: [
     { path: 'lessons', component: LessonsComponent },
     { path: 'dictionary', component: DictionaryComponent },
-    { path: 'settings', component: SettingsComponent }
+    { path: 'settings', component: SettingsComponent },
+    { path: 'student-settings', component: StudentSettingsComponent },
   ] },
   { path: 'video-call', component: VideoCallComponent },
 ];
