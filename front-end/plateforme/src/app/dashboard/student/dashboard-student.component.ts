@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ModalService } from '../services/modal.service';
-import { SettingsMenuComponent } from './student-info/settings-menu/settings-menu/settings-menu.component';
+import { ModalService } from '../../services/modal.service';
+import { SettingsMenuComponent } from '../student-info/settings-menu/settings-menu/settings-menu.component';
 
 @Component({
   selector: 'app-dashboard-student',
