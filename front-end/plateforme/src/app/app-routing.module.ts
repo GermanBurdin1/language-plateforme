@@ -7,10 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { DashboardTeacherComponent } from './dashboard/dashboard-teacher.component'
 import { VideoCallComponent } from './video-call/video-call.component';
 import { DashboardStudentComponent } from './dashboard/student/dashboard-student.component';
-import { LessonsComponent } from './dashboard/features/lessons/lessons.component';
-import { DictionaryComponent } from './dashboard/features/dictionary/dictionary.component';
-import { SettingsComponent } from './dashboard/features/settings/settings.component';
-import { StudentSettingsComponent } from './dashboard/student-info/student-settings/student-settings.component';
+import { LessonsComponent } from './dashboard/student/features/lessons/lessons.component';
+import { DictionaryComponent } from './dashboard//student/features/dictionary/dictionary.component';
+import { SettingsComponent } from './dashboard/student/features/settings/settings.component';
+import { StudentSettingsComponent } from './dashboard//student/student-info/student-settings/student-settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

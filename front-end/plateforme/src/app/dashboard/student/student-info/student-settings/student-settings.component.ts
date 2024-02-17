@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { StudentProfileService } from '../../../services/student-profile.service';
-import { AuthService } from '../../../auth.service';
+import { StudentProfileService } from '../../../../services/student-profile.service';
+import { AuthService } from '../../../../auth.service';
 
 @Component({
   selector: 'app-student-settings',
