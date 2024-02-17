@@ -11,4 +11,8 @@ export class ModalService {
     const modalRef = this.ngbModal.open(component, options);
     return modalRef;
   }
+
+  close(reason?: string) {
+    this.ngbModal.dismissAll(reason);
+  }
 }

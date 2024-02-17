@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../services/modal.service';
-import { StudentSettingsComponent } from './student-info/student-settings/student-settings.component';
+import { SettingsMenuComponent } from './student-info/settings-menu/settings-menu/settings-menu.component';
 
 @Component({
   selector: 'app-dashboard-student',
@@ -11,6 +11,6 @@ export class DashboardStudentComponent {
 
   openSettingsModal() {
     // Вызов метода open для открытия модального окна настроек студента
-    this.modalService.open(StudentSettingsComponent, { size: 'lg' });
+    this.modalService.open(SettingsMenuComponent, { size: 'lg' });
   }
 }
