@@ -30,7 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DictionaryComponent,
     SettingsComponent,
     LessonsComponent,
-    StudentSettingsComponent
+    StudentSettingsComponent,
   ],
   imports: [
     NgbModule,

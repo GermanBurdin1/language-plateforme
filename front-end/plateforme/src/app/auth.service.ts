@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, throwError,firstValueFrom } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,8 @@ export class AuthService {
         // Предположим, что ответ содержит поля token и role
         if (response.token && response.role) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role); // Сохраняем роль пользователя
+          localStorage.setItem('role', response.role);
+          localStorage.setItem('Id_person', response.Id_person);
         }
       }),
       catchError(this.handleError)
@@ -75,6 +76,10 @@ export class AuthService {
   getToken(): string | null {
     // Получение токена из localStorage или вашего сервиса
     return localStorage.getItem('token');
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('Id_person');
   }
 }
 

@@ -46,8 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $inputData['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $name = $inputData['name'];
-    $role = $inputData['role'];
-
+    // $role = $inputData['role'];
     $role = $inputData['role'] ?? null; // Получаем роль пользователя из входных данных
 
     // Массив допустимых значений для роли

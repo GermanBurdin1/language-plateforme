@@ -6,30 +6,14 @@
 </div>
 <div class="modal-body">
           <form>
-            <!-- Name -->
-            <div class="mb-3">
-              <label for="studentName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="studentName" [(ngModel)]="student.name">
-            </div>
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="studentEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="studentEmail" [(ngModel)]="student.email">
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label for="studentPassword" class="form-label">Password</label>
-              <input type="password" class="form-control" id="studentPassword" [(ngModel)]="student.password">
-            </div>
-            <!-- Location -->
             <div class="mb-3">
               <label for="studentLocation" class="form-label">Location</label>
-              <input type="text" class="form-control" id="studentLocation" [(ngModel)]="student.location">
+              <input type="text" class="form-control" id="studentLocation" [(ngModel)]="student.location" name="studentLocation">
             </div>
             <!-- Native Language -->
             <div class="mb-3">
               <label for="studentNativeLanguage" class="form-label">Native Language</label>
-              <select class="form-select" id="studentNativeLanguage" [(ngModel)]="student.nativeLanguage">
+              <select class="form-select" id="studentNativeLanguage" [(ngModel)]="student.native_Language" name="studentNativeLanguage">
                 <option value="Russian">Russian</option>
                 <option value="English">English</option>
                 <!-- Добавьте другие языки по необходимости -->
@@ -38,21 +22,21 @@
             <!-- Timezone -->
             <div class="mb-3">
               <label for="studentTimezone" class="form-label">Timezone</label>
-              <input type="text" class="form-control" id="studentTimezone" [(ngModel)]="student.timezone">
+              <input type="text" class="form-control" id="studentTimezone" [(ngModel)]="student.timezone" name="studentTimezone">
             </div>
             <!-- Skype -->
             <div class="mb-3">
               <label for="studentSkype" class="form-label">Skype</label>
-              <input type="text" class="form-control" id="studentSkype" [(ngModel)]="student.skype">
+              <input type="text" class="form-control" id="studentSkype" [(ngModel)]="student.skype" name="studentSkype">
             </div>
             <!-- Zoom -->
             <div class="mb-3">
               <label for="studentZoom" class="form-label">Zoom</label>
-              <input type="text" class="form-control" id="studentZoom" [(ngModel)]="student.zoom">
+              <input type="text" class="form-control" id="studentZoom" [(ngModel)]="student.call_link" name="studentZoom">
             </div>
             <!-- Buttons -->
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button type="button" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
             </div>
             <div #modalContent>
               <!-- Содержимое модального окна -->

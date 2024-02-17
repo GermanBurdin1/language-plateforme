@@ -1,4 +1,5 @@
 <?php
+
 require '../../../db.php'; // Подключение к базе данных
 
 header('Content-Type: application/json');
@@ -8,12 +9,32 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // Получение данных из POST-запроса
 $inputData = json_decode(file_get_contents('php://input'), true);
-$userId = $inputData['userId']; // ID пользователя, для которого создается профиль
-$location = $inputData['location'];
-$nativeLanguage = $inputData['native_language'];
-$timezone = $inputData['timezone'];
-$skype = $inputData['skype'];
-$callLink = $inputData['call_link'];
+$userId = $inputData['userId']; // ID пользователя, для которого создается или обновляется профиль
+
+// Формирование запроса на основе предоставленных данных
+$updateFields = [];
+$params = [':userId' => $userId];
+
+if (isset($inputData['location'])) {
+    $updateFields[] = "location = :location";
+    $params[':location'] = $inputData['location'];
+}
+if (isset($inputData['native_Language'])) {
+    $updateFields[] = "native_Language = :native_Language";
+    $params[':native_Language'] = $inputData['native_Language'];
+}
+if (isset($inputData['timezone'])) {
+    $updateFields[] = "timezone = :timezone";
+    $params[':timezone'] = $inputData['timezone'];
+}
+if (isset($inputData['skype'])) {
+    $updateFields[] = "skype = :skype";
+    $params[':skype'] = $inputData['skype'];
+}
+if (isset($inputData['call_link'])) {
+    $updateFields[] = "call_link = :call_link";
+    $params[':call_link'] = $inputData['call_link'];
+}
 
 try {
     $pdo->beginTransaction();
@@ -23,23 +44,16 @@ try {
     $stmt->execute([':userId' => $userId]);
     $exists = $stmt->fetchColumn();
 
-    if ($exists) {
+    if ($exists && count($updateFields) > 0) {
         // Если профиль уже существует, обновляем его
-        $stmt = $pdo->prepare("UPDATE studentprofile SET location = :location, native_language = :native_language, timezone = :timezone, skype = :skype, call_link = :call_link WHERE Id_person = :userId");
-    } else {
+        $sql = "UPDATE studentprofile SET " . implode(', ', $updateFields) . " WHERE Id_person = :userId";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+    } elseif (!$exists) {
         // Если профиль не существует, создаем новый
-        $stmt = $pdo->prepare("INSERT INTO studentprofile (Id_person, location, native_language, timezone, skype, call_link) VALUES (:userId, :location, :native_language, :timezone, :skype, :call_link)");
+        $stmt = $pdo->prepare("INSERT INTO studentprofile (Id_person, location, native_Language, timezone, skype, call_link) VALUES (:userId, :location, :native_Language, :timezone, :skype, :call_link)");
+        $stmt->execute($params);
     }
-
-    // Выполнение запроса с переданными данными
-    $stmt->execute([
-        ':userId' => $userId,
-        ':location' => $location,
-        ':native_language' => $nativeLanguage,
-        ':timezone' => $timezone,
-        ':skype' => $skype,
-        ':call_link' => $callLink
-    ]);
 
     $pdo->commit();
     echo json_encode(['result' => 'success']);
