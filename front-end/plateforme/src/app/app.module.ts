@@ -16,6 +16,9 @@ import { SettingsComponent } from './dashboard/student/features/settings/setting
 import { LessonsComponent } from './dashboard/student/features/lessons/lessons.component';
 import { StudentSettingsComponent } from './dashboard/student/student-info/student-settings/student-settings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyPageComponent } from './dashboard/student/features/myPage/my-page/my-page.component';
+import { PhotosComponent } from './dashboard/student/features/myPage/photos/photos.component';
+import { ChatComponent } from './dashboard/student/features/myPage/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SettingsComponent,
     LessonsComponent,
     StudentSettingsComponent,
+    MyPageComponent,
+    PhotosComponent,
+    ChatComponent,
   ],
   imports: [
     NgbModule,
