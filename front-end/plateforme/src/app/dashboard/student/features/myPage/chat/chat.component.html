@@ -1,1 +1,13 @@
-<p>chat works!</p>
+<div class="chat-container">
+  <div class="messages" #scrollContainer>
+    <div class="message" *ngFor="let message of messages">
+      <span class="message-user">{{message.user}}:</span>
+      <span class="message-content">{{message.content}}</span>
+    </div>
+  </div>
+  <div class="message-input">
+    <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Напишите сообщение...">
+    <button (click)="sendMessage()">Отправить</button>
+  </div>
+</div>
+
