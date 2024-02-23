@@ -1,1 +1,16 @@
-<p>dictionary works!</p>
+<div>
+  <h2>Add New Word</h2>
+  <input [(ngModel)]="original" placeholder="Original word" type="text" />
+  <input [(ngModel)]="translation" placeholder="Translation" type="text" />
+  <button (click)="addWord()">Add Word</button>
+</div>
+
+<!-- Опционально: отображение списка добавленных слов -->
+<div *ngIf="wordService.getWords().length > 0">
+  <h3>Words List</h3>
+  <ul>
+    <li *ngFor="let word of wordService.getWords()">
+      {{ word.original }} - {{ word.translation }}
+    </li>
+  </ul>
+</div>
