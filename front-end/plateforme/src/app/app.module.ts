@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyPageComponent } from './dashboard/student/features/myPage/my-page/my-page.component';
 import { PhotosComponent } from './dashboard/student/features/myPage/photos/photos.component';
 import { ChatComponent } from './dashboard/student/features/myPage/chat/chat.component';
+import { WordComponent } from './dashboard/student/features/dictionary/word/word.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ChatComponent } from './dashboard/student/features/myPage/chat/chat.com
     MyPageComponent,
     PhotosComponent,
     ChatComponent,
+    WordComponent,
   ],
   imports: [
     NgbModule,

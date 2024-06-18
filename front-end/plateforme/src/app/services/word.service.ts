@@ -1,7 +1,5 @@
-// src/app/services/word.service.ts
-
 import { Injectable } from '@angular/core';
-import { Word } from '../../../../models/word.model';
+import { Word } from '../models/word.model';  // Импортируем модель
 
 @Injectable({
   providedIn: 'root',

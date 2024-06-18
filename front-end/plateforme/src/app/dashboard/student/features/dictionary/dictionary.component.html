@@ -5,12 +5,13 @@
   <button (click)="addWord()">Add Word</button>
 </div>
 
-<!-- Опционально: отображение списка добавленных слов -->
-<div *ngIf="wordService.getWords().length > 0">
+<!-- Optional: Display list of added words -->
+<div *ngIf="getWords().length > 0">
   <h3>Words List</h3>
   <ul>
-    <li *ngFor="let word of wordService.getWords()">
+    <li *ngFor="let word of getWords()">
       {{ word.original }} - {{ word.translation }}
     </li>
   </ul>
 </div>
+
