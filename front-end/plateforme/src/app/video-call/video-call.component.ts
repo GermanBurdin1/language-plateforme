@@ -18,9 +18,9 @@ export class VideoCallComponent implements OnInit {
     audioTrack: null
   };
   remoteUsers = {};
-  appId = 'a020b374553e4fac80325223fba38531'; // Замените на ваш App ID
-  channelName = 'rtc_token'; // Замените на имя вашего канала
-  token = ''; // Токен будет получен из сервиса
+  appId = 'a020b374553e4fac80325223fba38531';
+  channelName = 'rtc_token';
+  token = '';
   remoteVideos: ElementRef[] = [];
 
   @Output() callStarted = new EventEmitter<void>();
@@ -28,15 +28,13 @@ export class VideoCallComponent implements OnInit {
 
   constructor(private tokenService: TokenService) {}
 
-  // Удален вызов joinChannel из ngOnInit
   ngOnInit(): void {
-    // Инициализацию можно оставить пустой или использовать для других целей
+
   }
 
-  // Объявлены как public, чтобы дать возможность вызывать их из DashboardComponent
+
   public async startCall(): Promise<void> {
     try {
-      // Получаем токен из сервиса перед подключением к каналу
       this.token = await this.tokenService.getToken(this.channelName);
       await this.joinChannel();
       this.callStarted.emit();
@@ -67,7 +65,7 @@ export class VideoCallComponent implements OnInit {
 
     await this.agoraClient.join(this.appId, this.channelName, this.token);
 
-    // Публикация локального видеопотока
+
     await this.agoraClient.publish(Object.values(this.localTracks));
     console.log('Publish success');
 
@@ -76,24 +74,22 @@ export class VideoCallComponent implements OnInit {
       console.log('Subscribe success');
 
       if (mediaType === 'video' && user.videoTrack) {
-        // Теперь мы проверяем, что user.videoTrack определен
+
         const remoteVideoTrack = user.videoTrack;
 
         const videoElement = document.createElement('video');
-        document.body.appendChild(videoElement); // или добавьте в другой элемент в DOM
+        document.body.appendChild(videoElement);
         remoteVideoTrack.play(videoElement);
 
         this.remoteVideos.push(new ElementRef(videoElement));
       }
 
       if (mediaType === 'audio' && user.audioTrack) {
-        // Аналогичная проверка для audioTrack
         user.audioTrack.play();
       }
     });
 
     this.agoraClient.on('user-unpublished', (user) => {
-      // Удаление видеоэлемента удаленного пользователя
       const index = this.remoteVideos.findIndex(x => x.nativeElement.id === `video_${user.uid}`);
       if (index !== -1) {
         this.remoteVideos[index].nativeElement.remove();
@@ -103,11 +99,9 @@ export class VideoCallComponent implements OnInit {
   }
 
   private async leaveChannel(): Promise<void> {
-    // Отключение всех локальных треков
     this.localTracks.videoTrack?.close();
     this.localTracks.audioTrack?.close();
 
-    // Отписка от всех удаленных пользователей и выход из канала
     this.agoraClient.remoteUsers.forEach((user) => {
       this.agoraClient.unsubscribe(user);
     });

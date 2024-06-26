@@ -1,10 +1,11 @@
 <div class="personal-cabinet">
-  <h2>Welcome, {{ name }}!</h2>
+  <h2>Bienvenue, {{ name }}!</h2>
 
-  <!-- Компонент видеозвонка, который будет управлять самим звонком -->
+  <!-- Composant d'appel vidéo qui gère l'appel lui-même -->
   <app-video-call #videoCall></app-video-call>
 
-  <!-- Кнопки для начала и окончания видеозвонка -->
-  <button (click)="videoCall.startCall()">Начать звонок</button>
-  <button (click)="videoCall.endCall()">Завершить звонок</button>
+  <!-- Boutons pour démarrer et terminer l'appel vidéo -->
+  <button class="call-button start-button" (click)="videoCall.startCall()">Démarrer l'appel</button>
+  <button class="call-button end-button" (click)="videoCall.endCall()">Terminer l'appel</button>
 </div>
+

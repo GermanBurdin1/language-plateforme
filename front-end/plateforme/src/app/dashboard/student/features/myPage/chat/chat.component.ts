@@ -14,7 +14,7 @@ export class ChatComponent {
   sendMessage() {
     if (this.newMessage.trim() !== '') {
       this.messages.push({
-        user: 'Пользователь', // Замените на динамическое значение, если необходимо
+        user: 'Utilisateur',
         content: this.newMessage
       });
       this.newMessage = '';

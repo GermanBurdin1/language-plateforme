@@ -11,7 +11,6 @@ export class DashboardTeacherComponent implements OnInit {
   name: string = '';
   token: string | null = null;
 
-  // Используем ViewChild для получения доступа к методам VideoCallComponent
   @ViewChild(VideoCallComponent) videoCallComponent!: VideoCallComponent;
 
   constructor(private authService: AuthService) {}
@@ -20,7 +19,6 @@ export class DashboardTeacherComponent implements OnInit {
     // Получаем токен из сервиса аутентификации
     this.token = this.authService.getToken();
     if (this.token) {
-      // Получаем имя пользователя с использованием полученного токена
       this.authService.getUserName(this.token).subscribe({
         next: (response) => {
           this.name = response.name;
@@ -34,9 +32,7 @@ export class DashboardTeacherComponent implements OnInit {
     }
   }
 
-  // Методы для взаимодействия с VideoCallComponent
   startVideoCall(): void {
-    // Убедитесь, что videoCallComponent загружен
     if (this.videoCallComponent) {
       this.videoCallComponent.startCall();
     } else {
@@ -45,7 +41,6 @@ export class DashboardTeacherComponent implements OnInit {
   }
 
   endVideoCall(): void {
-    // Убедитесь, что videoCallComponent загружен
     if (this.videoCallComponent) {
       this.videoCallComponent.endCall();
     } else {

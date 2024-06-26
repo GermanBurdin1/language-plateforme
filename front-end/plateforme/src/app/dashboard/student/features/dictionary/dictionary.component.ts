@@ -4,7 +4,7 @@ import { WordService } from './dictionary.service';// Ensure this path is correc
 @Component({
   selector: 'app-dictionary',
   templateUrl: './dictionary.component.html',
-  styleUrls: ['./dictionary.component.scss']  // Corrected from 'styleUrl' to 'styleUrls'
+  styleUrls: ['./dictionary.component.scss']
 })
 export class DictionaryComponent {
   original: string = '';
@@ -12,10 +12,13 @@ export class DictionaryComponent {
 
   constructor(private wordService: WordService) {}
 
-  addWord(): void {
-    this.wordService.addWord(this.original, this.translation);
-    this.original = '';
-    this.translation = '';
+  addWord() {
+    this.wordService.translateWord(this.original, 'en', 'fr').subscribe((response: any) => {
+      this.translation = response.translatedText;
+      this.wordService.addWord(this.original, this.translation);
+      this.original = '';
+      this.translation = '';
+    });
   }
 
   getWords() {

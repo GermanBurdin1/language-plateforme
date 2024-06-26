@@ -14,7 +14,7 @@ interface FormData {
   login?: string;
   password: string;
   name: string;
-  role: string; // Add this line
+  role: string;
 }
 
 @Component({
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       ], [loginUniqueValidator(this.checkLoginExistence.bind(this))]],
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required],
-      role: ['', Validators.required] // Add this line
+      role: ['', Validators.required]
     });
   }
 
@@ -75,7 +75,6 @@ export class RegisterComponent implements OnInit {
     this.attemptedSubmit = true;
 
     if (this.registerForm.invalid) {
-      // Обработка ошибок
       return;
     }
     if (this.registerForm.valid && !this.emailExists && !this.loginExists) {
@@ -97,17 +96,16 @@ export class RegisterComponent implements OnInit {
               console.error('Ошибка:', response.error);
             }
           } else {
-            // Перенаправление на страницу подтверждения
             console.log('Успех:', response);
             this.router.navigate(['/confirmation']);
           }
         },
         error: (error) => {
-          console.error('Ошибка при отправке данных:', error);
+          console.error('Erreur survenue lors de l\'envoi des données:', error);
         }
       });
   } else {
-    console.error('Форма невалидна:', this.registerForm.errors);
+    console.error('Forme incorrecte:', this.registerForm.errors);
   }
 }
 }
