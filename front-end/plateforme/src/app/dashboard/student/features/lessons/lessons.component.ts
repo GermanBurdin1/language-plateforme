@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 interface Person {
   id: number;
@@ -17,7 +19,7 @@ interface Person {
 export class LessonsComponent implements OnInit {
   teachers: Person[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.loadTeachers();
@@ -37,18 +39,25 @@ export class LessonsComponent implements OnInit {
   bookLesson(teacher: Person, time: string) {
     const bookingData = {
       teacher_id: teacher.id,
-      student_id: 1,
+      student_id: 1, // Пример: идентификатор текущего студента
       lesson_time: time
     };
 
-    this.http.post('/api/lessons', bookingData).subscribe({
+    this.http.post('http://learn-lang-platform.local/back-end/api/bookLesson.php', bookingData).subscribe({
       next: (response) => {
-        console.log('Lesson booked successfully', response);
+        this.openConfirmationDialog('Vous avez bien réservé votre cours!');
       },
       error: (error) => {
         console.error('Error booking lesson', error);
       }
     });
   }
-}
 
+  openConfirmationDialog(message: string) {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
+}

@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +20,14 @@ import { MyPageComponent } from './dashboard/student/features/myPage/my-page/my-
 import { PhotosComponent } from './dashboard/student/features/myPage/photos/photos.component';
 import { ChatComponent } from './dashboard/student/features/myPage/chat/chat.component';
 import { WordComponent } from './dashboard/student/features/dictionary/word/word.component';
+
+// Import Angular Material modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+// Import ConfirmationDialogComponent
+import { ConfirmationDialogComponent } from './dashboard/student/features/lessons/confirmation-dialog/confirmation-dialog.component'
 
 @NgModule({
   declarations: [
@@ -39,6 +47,7 @@ import { WordComponent } from './dashboard/student/features/dictionary/word/word
     PhotosComponent,
     ChatComponent,
     WordComponent,
+    ConfirmationDialogComponent, // Add the confirmation dialog component
   ],
   imports: [
     NgbModule,
@@ -46,9 +55,13 @@ import { WordComponent } from './dashboard/student/features/dictionary/word/word
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // Required for Angular Material
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ // Add entryComponents for the dialog
 })
 export class AppModule { }
