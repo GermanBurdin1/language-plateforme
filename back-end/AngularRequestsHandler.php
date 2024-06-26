@@ -54,7 +54,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $inputData['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $name = $inputData['name'];
-    $role = $inputData['role'];
+    // $role = $inputData['role'];
+    $role = $inputData['role'] ?? null; // Получаем роль пользователя из входных данных
+
+    // Массив допустимых значений для роли
+    $validRoles = ['teacher', 'student'];
+
+    // Проверяем, что полученная роль действительно присутствует в массиве допустимых значений
+    if (!in_array($role, $validRoles)) {
+        // Если полученное значение роли не соответствует допустимым вариантам, возвращаем ошибку
+        http_response_code(400); // Устанавливаем код состояния HTTP 400 Bad Request
+        echo json_encode(['error' => 'Invalid role specified.']);
+        exit; // Прекращаем выполнение скрипта
+    }
 
     if (!empty($email) && !empty($login) && !empty($role)) {
         $checkEmailStmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE e_mail = :e_mail");
@@ -75,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $verificationToken = bin2hex(random_bytes(16));
-            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, verification_token, role) VALUES (:e_mail, :login, :password, :name, :verification_token, :role)");
+            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, role,verification_token, role) VALUES (:e_mail, :login, :password, :name, :role, :verification_token, :role)");
             $stmt->execute([
                 ':e_mail' => $email,
                 ':login' => $login,

@@ -1,0 +1,52 @@
+[26-Jun-2024 11:55:47 UTC] Raw input: {"q":"hello","source":"en","target":"fr","format":"text"}
+[26-Jun-2024 11:55:47 UTC] Decoded input: Array
+(
+    [q] => hello
+    [source] => en
+    [target] => fr
+    [format] => text
+)
+
+[26-Jun-2024 11:55:47 UTC] HTTP Response Code: 502
+[26-Jun-2024 11:55:47 UTC] cURL Error: 
+[26-Jun-2024 11:55:47 UTC] API Response: connection refused
+[26-Jun-2024 11:55:47 UTC] Translation result: 
+[26-Jun-2024 11:55:47 UTC] Translation API did not return 'translatedText'
+[26-Jun-2024 11:58:49 UTC] Raw input: {"q":"hello","source":"en","target":"fr","format":"text"}
+[26-Jun-2024 11:58:49 UTC] Decoded input: Array
+(
+    [q] => hello
+    [source] => en
+    [target] => fr
+    [format] => text
+)
+
+[26-Jun-2024 11:58:49 UTC] HTTP Response Code: 400
+[26-Jun-2024 11:58:49 UTC] cURL Error: 
+[26-Jun-2024 11:58:49 UTC] API Response: {"error":"Посетите https://portal.libretranslate.com для получения ключа API"}
+
+[26-Jun-2024 11:58:49 UTC] Translation result: Array
+(
+    [error] => Посетите https://portal.libretranslate.com для получения ключа API
+)
+
+[26-Jun-2024 11:58:49 UTC] Translation API did not return 'translatedText'
+[26-Jun-2024 12:02:51 UTC] Raw input: {"q":"hello","source":"en","target":"fr","format":"text"}
+[26-Jun-2024 12:02:51 UTC] Decoded input: Array
+(
+    [q] => hello
+    [source] => en
+    [target] => fr
+    [format] => text
+)
+
+[26-Jun-2024 12:02:51 UTC] HTTP Response Code: 400
+[26-Jun-2024 12:02:51 UTC] cURL Error: 
+[26-Jun-2024 12:02:51 UTC] API Response: {"error":"Visit https://portal.libretranslate.com to get an API key"}
+
+[26-Jun-2024 12:02:51 UTC] Translation result: Array
+(
+    [error] => Visit https://portal.libretranslate.com to get an API key
+)
+
+[26-Jun-2024 12:02:51 UTC] Translation API did not return 'translatedText'

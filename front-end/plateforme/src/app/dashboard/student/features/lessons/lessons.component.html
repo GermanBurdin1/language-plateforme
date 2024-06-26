@@ -1,0 +1,15 @@
+<div class="lessons-container">
+  <h1>Enseignants Disponibles</h1>
+  <div class="teacher-card" *ngFor="let teacher of teachers">
+    <h2>{{ teacher.name }}</h2>
+    <p>{{ teacher.email }}</p>
+    <h3>Heures Disponibles :</h3>
+    <ul>
+      <li *ngFor="let time of teacher.availableTimes">
+        {{ time }}
+        <button (click)="bookLesson(teacher, time)">Réserver un Cours</button>
+      </li>
+    </ul>
+  </div>
+</div>
+

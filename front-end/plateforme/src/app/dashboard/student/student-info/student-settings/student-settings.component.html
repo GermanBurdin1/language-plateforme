@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title">Student's Profile</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="studentLocation" class="form-label">Location</label>
+              <input type="text" class="form-control" id="studentLocation" [(ngModel)]="student.location" name="studentLocation">
+            </div>
+            <!-- Native Language -->
+            <div class="mb-3">
+              <label for="studentNativeLanguage" class="form-label">Native Language</label>
+              <select class="form-select" id="studentNativeLanguage" [(ngModel)]="student.native_Language" name="studentNativeLanguage">
+                <option value="Russian">Russian</option>
+                <option value="English">English</option>
+                <!-- Добавьте другие языки по необходимости -->
+              </select>
+            </div>
+            <!-- Timezone -->
+            <div class="mb-3">
+              <label for="studentTimezone" class="form-label">Timezone</label>
+              <input type="text" class="form-control" id="studentTimezone" [(ngModel)]="student.timezone" name="studentTimezone">
+            </div>
+            <!-- Skype -->
+            <div class="mb-3">
+              <label for="studentSkype" class="form-label">Skype</label>
+              <input type="text" class="form-control" id="studentSkype" [(ngModel)]="student.skype" name="studentSkype">
+            </div>
+            <!-- Zoom -->
+            <div class="mb-3">
+              <label for="studentZoom" class="form-label">Zoom</label>
+              <input type="text" class="form-control" id="studentZoom" [(ngModel)]="student.call_link" name="studentZoom">
+            </div>
+            <!-- Buttons -->
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+            </div>
+            <div #modalContent>
+              <!-- Содержимое модального окна -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Close click')">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+        </div>

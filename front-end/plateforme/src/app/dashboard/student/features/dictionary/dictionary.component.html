@@ -1,0 +1,17 @@
+<div>
+  <h2>Ajouter un Nouveau Mot</h2>
+  <input [(ngModel)]="original" placeholder="Mot original" type="text" />
+  <input [(ngModel)]="translation" placeholder="Traduction" type="text" />
+  <button (click)="addWord()">Ajouter le Mot</button>
+</div>
+
+<!-- Optionnel: Afficher la liste des mots ajoutés -->
+<div *ngIf="getWords().length > 0">
+  <h3>Liste des Mots</h3>
+  <ul>
+    <li *ngFor="let word of getWords()">
+      {{ word.original }} - {{ word.translation }}
+    </li>
+  </ul>
+</div>
+

@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
               this.authService.getUserRole(token).subscribe({
                 next: (role) => {
                   if (role === 'student') {
-                    this.router.navigate(['/student-dashboard']);
+                    this.router.navigate(['/dashboard-student']);
                   } else if (role === 'teacher') {
-                    this.router.navigate(['/teacher-dashboard']);
+                    this.router.navigate(['/dashboard-teacher']);
                   }
                 },
                 error: (err) => {
@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit {
               console.error('Token is missing after login');
             }
           } else {
-            // Обрабатываем случай, когда в ответе нет токена
-            console.error('Token is missing in the response');
+            // Обработка неизвестной или отсутствующей роли
+            console.error('Unknown or missing role');
             // Здесь можно добавить логику для информирования пользователя об ошибке
           }
         },

@@ -3,15 +3,14 @@ import { AuthService } from '../auth.service';
 import { VideoCallComponent } from '../video-call/video-call.component';
 
 @Component({
-  selector: 'app-teacher-dashboard',
-  templateUrl: './teacher-dashboard.component.html',
-  styleUrls: ['./teacher-dashboard.component.scss']
+  selector: 'app-dashboard-teacher',
+  templateUrl: './dashboard-teacher.component.html',
+  styleUrls: ['./dashboard-teacher.component.scss']
 })
-export class TeacherDashboardComponent implements OnInit {
+export class DashboardTeacherComponent implements OnInit {
   name: string = '';
   token: string | null = null;
 
-  // Используем ViewChild для получения доступа к методам VideoCallComponent
   @ViewChild(VideoCallComponent) videoCallComponent!: VideoCallComponent;
 
   constructor(private authService: AuthService) {}
@@ -20,12 +19,11 @@ export class TeacherDashboardComponent implements OnInit {
     // Получаем токен из сервиса аутентификации
     this.token = this.authService.getToken();
     if (this.token) {
-      // Получаем имя пользователя с использованием полученного токена
       this.authService.getUserName(this.token).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.name = response.name;
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error getting user name:', error);
         }
       });
@@ -34,9 +32,7 @@ export class TeacherDashboardComponent implements OnInit {
     }
   }
 
-  // Методы для взаимодействия с VideoCallComponent
   startVideoCall(): void {
-    // Убедитесь, что videoCallComponent загружен
     if (this.videoCallComponent) {
       this.videoCallComponent.startCall();
     } else {
@@ -45,7 +41,6 @@ export class TeacherDashboardComponent implements OnInit {
   }
 
   endVideoCall(): void {
-    // Убедитесь, что videoCallComponent загружен
     if (this.videoCallComponent) {
       this.videoCallComponent.endCall();
     } else {

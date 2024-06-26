@@ -15,6 +15,8 @@ interface FormData {
   login?: string;
   password: string;
   name: string;
+
+
   role: 'student' | 'teacher';
 }
 
@@ -40,6 +42,7 @@ export class RegisterComponent implements OnInit {
       ], [loginUniqueValidator(this.checkLoginExistence.bind(this))]],
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required],
+
       role: ['', Validators.required] // Добавляем валидацию на обязательное поле
     });
   }
@@ -76,6 +79,7 @@ export class RegisterComponent implements OnInit {
     console.log("hello");
     this.attemptedSubmit = true;
 
+
     console.log('Валидность формы:', this.registerForm.valid);
     console.log('Форма имеет ошибки:', this.registerForm.errors);
 
@@ -107,6 +111,7 @@ export class RegisterComponent implements OnInit {
               console.error('Ошибка:', response.error);
             }
           } else {
+
             localStorage.setItem('token', response.token);
             this.router.navigate(['/confirmation']);
           }
@@ -117,7 +122,7 @@ export class RegisterComponent implements OnInit {
       });
 
   } else {
-    console.error('Форма невалидна:', this.registerForm.errors);
+    console.error('Forme incorrecte:', this.registerForm.errors);
   }
 }
 }

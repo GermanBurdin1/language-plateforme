@@ -4,13 +4,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
-import { TeacherDashboardComponent } from './dashboard/teacher-dashboard.component';
+import { DashboardTeacherComponent } from './dashboard/dashboard-teacher.component';
 import { VideoCallComponent } from './video-call/video-call.component';
-import { StudentDashboardComponent } from './dashboard/student-dashboard.component';
+import { DashboardStudentComponent } from './dashboard/student/dashboard-student.component';
+import { DictionaryComponent } from './dashboard/student/features/dictionary/dictionary.component';
+import { SettingsComponent } from './dashboard/student/features/settings/settings.component';
+import { LessonsComponent } from './dashboard/student/features/lessons/lessons.component';
+import { StudentSettingsComponent } from './dashboard/student/student-info/student-settings/student-settings.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyPageComponent } from './dashboard/student/features/myPage/my-page/my-page.component';
+import { PhotosComponent } from './dashboard/student/features/myPage/photos/photos.component';
+import { ChatComponent } from './dashboard/student/features/myPage/chat/chat.component';
+import { WordComponent } from './dashboard/student/features/dictionary/word/word.component';
+
+// Import Angular Material modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+// Import ConfirmationDialogComponent
+import { ConfirmationDialogComponent } from './dashboard/student/features/lessons/confirmation-dialog/confirmation-dialog.component'
 
 @NgModule({
   declarations: [
@@ -19,18 +36,32 @@ import { StudentDashboardComponent } from './dashboard/student-dashboard.compone
     LoginComponent,
     ConfirmationComponent,
     HomeComponent,
-    TeacherDashboardComponent,
+    DashboardTeacherComponent,
     VideoCallComponent,
-    StudentDashboardComponent
+    DashboardStudentComponent,
+    DictionaryComponent,
+    SettingsComponent,
+    LessonsComponent,
+    StudentSettingsComponent,
+    MyPageComponent,
+    PhotosComponent,
+    ChatComponent,
+    WordComponent,
+    ConfirmationDialogComponent, // Add the confirmation dialog component
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // Required for Angular Material
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ // Add entryComponents for the dialog
 })
 export class AppModule { }

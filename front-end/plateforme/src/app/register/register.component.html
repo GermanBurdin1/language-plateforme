@@ -3,15 +3,14 @@
     <div class="col-md-6">
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-3">
         <div class="form-group mb-4">
-          <label for="role" class="form-label">Role:</label>
-          <select id="role" formControlName="role" class="form-control"
-            [class.is-invalid]="registerForm.get('role')?.invalid && (registerForm.get('role')?.touched || attemptedSubmit)">
-            <option value="" disabled>Select your role</option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
+          <label for="role" class="form-label">Rôle:</label>
+          <select id="role" formControlName="role" class="form-control" [class.is-invalid]="registerForm.get('role')?.invalid && attemptedSubmit">
+            <option value="" disabled>Sélectionnez votre rôle</option>
+            <option value="teacher">professeur</option>
+            <option value="student">étudiant</option>
           </select>
           <div *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid" class="alert alert-danger mt-2">
-            Role is required.
+            Le rôle est obligatoire.
           </div>
         </div>
         <div class="form-group mb-3">
@@ -19,65 +18,65 @@
           <input type="email" id="e_mail" formControlName="e_mail" class="form-control" [class.is-invalid]="registerForm.get('e_mail')?.invalid && (emailExists || attemptedSubmit)">
           <div *ngIf="registerForm.get('e_mail')?.touched && registerForm.get('e_mail')?.invalid" class="alert alert-danger mt-2">
           <div *ngIf="registerForm.get('e_mail')?.errors?.['required']" class="alert alert-danger mt-2">
-            Email is required.
+            L'email est obligatoire.
           </div>
           <div *ngIf="registerForm.get('e_mail')?.invalid && (emailExists || attemptedSubmit)" class="alert alert-danger mt-2">
-            Such an email already exists, please use another email.
+            Un tel email existe déjà, veuillez en utiliser un autre.
           </div>
           <div *ngIf="registerForm.controls['e_mail'].errors?.['emailFormat']" class="alert alert-danger mt-2">
-            Please enter a valid email address with a and a period following it.
+            Veuillez entrer une adresse email valide avec un point suivant celui-ci.
           </div>
         </div>
         </div>
         <div class="form-group mb-3">
-          <label for="login" class="form-label">Login:</label>
+          <label for="login" class="form-label">Identifiant:</label>
           <input type="text" id="login" formControlName="login" class="form-control" [class.is-invalid]="registerForm.get('login')?.invalid && (loginExists || attemptedSubmit)">
           <div *ngIf="registerForm.get('login')?.touched && registerForm.get('login')?.invalid" class="alert alert-danger mt-2">
             <div *ngIf="registerForm.get('login')?.invalid && (loginExists || attemptedSubmit)" class="alert alert-danger mt-2">
-              Such a login already exists, please think of another login.
+              Un tel identifiant existe déjà, veuillez en choisir un autre.
             </div>
             <div *ngIf="registerForm.get('login')?.errors?.['minLength']" class="alert alert-danger mt-2">
-              Login must be at least 5 characters long.
+              L'identifiant doit contenir au moins 5 caractères.
             </div>
             <div *ngIf="registerForm.get('login')?.errors?.['startsWithLetter']" class="alert alert-danger mt-2">
-              Login must start with a letter.
+              L'identifiant doit commencer par une lettre.
             </div>
             <div *ngIf="registerForm.get('login')?.errors?.['alphanumeric']" class="alert alert-danger mt-2">
-              Login must contain only letters and numbers.
+              L'identifiant ne doit contenir que des lettres et des chiffres.
             </div>
             <div *ngIf="registerForm.get('login')?.errors?.['hasLettersAndNumbers']" class="alert alert-danger mt-2">
-              Login must include both letters and numbers.
+              L'identifiant doit inclure des lettres et des chiffres.
             </div>
           </div>
         </div>
         <div class="form-group mb-4">
-          <label for="password" class="form-label">Password:</label>
+          <label for="password" class="form-label">Mot de passe:</label>
           <input type="password" id="password" formControlName="password" class="form-control"
           [class.is-invalid]="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || attemptedSubmit)">
           <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="alert alert-danger mt-2">
             <div *ngIf="registerForm.get('password')?.errors?.['required']">
-              Password is required.
+              Le mot de passe est obligatoire.
             </div>
             <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
-              Password must be at least 12 characters long.
+              Le mot de passe doit contenir au moins 12 caractères.
             </div>
             <div *ngIf="registerForm.get('password')?.errors?.['passwordComplexity']">
-              The password must contain uppercase, lowercase letters, numbers, and special characters.
+              Le mot de passe doit contenir des lettres majuscules et minuscules, des chiffres et des caractères spéciaux.
             </div>
           </div>
         </div>
         <div class="form-group mb-4">
-          <label for="name" class="form-label">Name:</label>
+          <label for="name" class="form-label">Nom:</label>
           <input type="text" id="name" formControlName="name" class="form-control"
           [class.is-invalid]="registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || attemptedSubmit)">
           <div *ngIf="registerForm.controls['name'].touched && registerForm.controls['name'].invalid" class="alert alert-danger mt-2">
-            Name is required.
+            Le nom est obligatoire.
           </div>
         </div>
         <div *ngIf="attemptedSubmit && registerForm.invalid" class="alert alert-danger mt-2">
-          Please fill in all fields.
+          Veuillez remplir tous les champs.
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
       </form>
     </div>
   </div>

@@ -11,6 +11,7 @@ use GuzzleHttp\Exception\RequestException;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
 
+
     error_log(print_r($inputData, true), 3, "c:/users/germa/onedrive/bureau/projects/learn-lang-plateforme/logs/error.log");
 
     // Проверяем, установлены ли ключи в массиве $inputData
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'e_mail' => $email,
                 'login' => $login,
                 'password' => $password,
+
                 'role' => $role,
                 'name' => $name
             ]

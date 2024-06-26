@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-student/my-page" routerLinkActive="active">My Page</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" routerLink="/dashboard-student/lessons" routerLinkActive="active">My lessons</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-student/dictionary" routerLinkActive="active">Dictionary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-student/settings" routerLinkActive="active">Settings</a>
+  </li>
+  <!-- Исправлено для вызова метода openSettingsModal при клике -->
+  <button type="button" class="btn btn-primary rounded-circle position-fixed" style="right: 20px; top: 20px; width: 50px; height: 50px; z-index: 1050;" (click)="openSettingsModal()">
+    <i class="fas fa-cog"></i> <!-- Иконка настроек -->
+  </button>
+</ul>
+<router-outlet></router-outlet>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -14,9 +15,17 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login.php`, {e_mail: email, password })
     .pipe(
-      tap(response => console.log('Ответ от сервера на логин:', response)),
+      tap(response => {
+        console.log('Ответ от сервера на логин:', response)
+        // Предположим, что ответ содержит поля token и role
+        if (response.token && response.role) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role);
+          localStorage.setItem('Id_person', response.Id_person);
+        }
+      }),
       catchError(this.handleError)
-    );;
+    );
   }
 
   register(userDetails: any): Observable<any> {
@@ -55,6 +64,7 @@ export class AuthService {
     );
   }
 
+
   getUserRole(token: string): Observable<any> {
     const getUserUrl = 'http://learn-lang-platform.local/back-end/end-points/user-details/getUserRole.php';
     return this.http.get<any>(getUserUrl, {
@@ -79,7 +89,6 @@ export class AuthService {
   // }
 
   saveUserRole(role: string): void {
-    localStorage.setItem('userRole', role);
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -99,6 +108,10 @@ export class AuthService {
   getToken(): string | null {
     // Получение токена из localStorage или вашего сервиса
     return localStorage.getItem('token');
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('Id_person');
   }
 }
 
