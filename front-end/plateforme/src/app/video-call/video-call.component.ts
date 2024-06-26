@@ -32,6 +32,7 @@ export class VideoCallComponent implements OnInit {
 
   }
 
+  // Объявлены как public, чтобы дать возможность вызывать их из TeacherDashboardComponent
 
   public async startCall(): Promise<void> {
     try {

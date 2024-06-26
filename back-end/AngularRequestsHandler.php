@@ -1,5 +1,8 @@
 <?php
 // Заголовки для CORS и JSON
+
+ini_set('error_log', 'logfile.log');
+
 require 'db.php';
 require 'vendor/autoload.php';
 
@@ -10,6 +13,8 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
+// error_log(print_r([1, 2, 3], true), 3, "c:/users/germa/onedrive/bureau/projects/learn-lang-plateforme/logs/error.log");
 
 // Обработка предзапроса CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -41,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['login'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputData = json_decode(file_get_contents('php://input'), true);
+
+    error_log(print_r($inputData, true), 3, "c:/users/germa/onedrive/bureau/projects/learn-lang-plateforme/logs/error.log");
+    
     $email = $inputData['e_mail'] ?? null;
     $login = $inputData['login'] ?? null;
     $password = $inputData['password'];
@@ -60,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit; // Прекращаем выполнение скрипта
     }
 
-    if (!empty($email) && !empty($login)) {
+    if (!empty($email) && !empty($login) && !empty($role)) {
         $checkEmailStmt = $pdo->prepare("SELECT COUNT(*) FROM person WHERE e_mail = :e_mail");
         $checkEmailStmt->execute([':e_mail' => $email]);
         if ($checkEmailStmt->fetchColumn() > 0) {
@@ -79,14 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $verificationToken = bin2hex(random_bytes(16));
-            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, role,verification_token) VALUES (:e_mail, :login, :password, :name, :role, :verification_token)");
+            $stmt = $pdo->prepare("INSERT INTO person (e_mail, login, password, name, role,verification_token, role) VALUES (:e_mail, :login, :password, :name, :role, :verification_token, :role)");
             $stmt->execute([
                 ':e_mail' => $email,
                 ':login' => $login,
                 ':password' => $hashedPassword,
                 ':name' => $name,
-                ':role' => $role,
-                ':verification_token' => $verificationToken
+                ':verification_token' => $verificationToken,
+                ':role' => $role
             ]);
         
             sendVerificationEmail($email, $verificationToken);
@@ -101,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        echo json_encode(['error' => 'Both email and login are required.']);
+        echo json_encode(['error' => 'Both email,login and role are required.']);
     }
 }
 

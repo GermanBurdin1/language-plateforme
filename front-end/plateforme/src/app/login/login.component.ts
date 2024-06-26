@@ -27,15 +27,30 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.email,
         this.loginForm.value.password
       ).subscribe({
-        next: () => {
-          // После успешного входа получаем роль пользователя из localStorage
-          const role = this.authService.getUserRole();
-          if (role === 'teacher') {
-            // Редирект на дашборд учителя
-            this.router.navigate(['/dashboard-teacher']);
-          } else if (role === 'student') {
-            // Редирект на дашборд студента
-            this.router.navigate(['/dashboard-student']);
+        next: (response) => {
+          if (response && response.token) {
+            // Сохраняем полученный токен
+            localStorage.setItem('token', response.token);
+            // Здесь мы извлекаем токен из localStorage
+            const token = localStorage.getItem('token');
+            if (token) {
+              // Передаем токен как аргумент в getUserRole
+              this.authService.getUserRole(token).subscribe({
+                next: (role) => {
+                  if (role === 'student') {
+                    this.router.navigate(['/dashboard-student']);
+                  } else if (role === 'teacher') {
+                    this.router.navigate(['/dashboard-teacher']);
+                  }
+                },
+                error: (err) => {
+                  console.error('Error getting user role:', err);
+                }
+              });
+            } else {
+              // Обрабатываем случай, когда токен не был найден
+              console.error('Token is missing after login');
+            }
           } else {
             // Обработка неизвестной или отсутствующей роли
             console.error('Unknown or missing role');

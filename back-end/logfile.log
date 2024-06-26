@@ -101,3 +101,15 @@ User authenticated successfully: {"Id_person":37,"e_mail":"studentstudent@gmail.
 Authenticating user with email: studentstudent@gmail.com
 Found user: {"Id_person":37,"e_mail":"studentstudent@gmail.com","login":"student1","password":"$2y$10$5qKYZyalSsNKow4gBBDsy.AKWmuBNKSzjCsuUk6fXEdcDGHhfEzxy","name":"German","is_verified":0,"verification_token":"3b8f2eed9b8f62c4442e8c81fd8b1b14","role":"student"}
 User authenticated successfully: {"Id_person":37,"e_mail":"studentstudent@gmail.com","login":"student1","password":"$2y$10$5qKYZyalSsNKow4gBBDsy.AKWmuBNKSzjCsuUk6fXEdcDGHhfEzxy","name":"German","is_verified":0,"verification_token":"3b8f2eed9b8f62c4442e8c81fd8b1b14","role":"student"}
+[26-Jun-2024 20:18:51 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php on line 20
+[26-Jun-2024 20:18:51 UTC] PHP Stack trace:
+[26-Jun-2024 20:18:51 UTC] PHP   1. {main}() C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php:0
+[26-Jun-2024 20:18:51 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php on line 25
+[26-Jun-2024 20:18:51 UTC] PHP Stack trace:
+[26-Jun-2024 20:18:51 UTC] PHP   1. {main}() C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php:0
+[26-Jun-2024 20:18:51 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php on line 36
+[26-Jun-2024 20:18:51 UTC] PHP Stack trace:
+[26-Jun-2024 20:18:51 UTC] PHP   1. {main}() C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php:0
+[26-Jun-2024 20:18:51 UTC] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php on line 47
+[26-Jun-2024 20:18:51 UTC] PHP Stack trace:
+[26-Jun-2024 20:18:51 UTC] PHP   1. {main}() C:\Users\germa\OneDrive\Bureau\projects\learn-lang-plateforme\back-end\AngularRequestsHandler.php:0

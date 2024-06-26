@@ -20,10 +20,10 @@ export class DashboardTeacherComponent implements OnInit {
     this.token = this.authService.getToken();
     if (this.token) {
       this.authService.getUserName(this.token).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.name = response.name;
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error getting user name:', error);
         }
       });
