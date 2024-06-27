@@ -18,54 +18,52 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit() {
     if (this.loginForm.valid) {
+      console.log('Форма логина валидна, отправка запроса на сервер');
       this.authService.login(
         this.loginForm.value.email,
         this.loginForm.value.password
       ).subscribe({
         next: (response) => {
           if (response && response.token) {
-            // Сохраняем полученный токен
             localStorage.setItem('token', response.token);
-            // Здесь мы извлекаем токен из localStorage
             const token = localStorage.getItem('token');
+            console.log('Получен токен:', token);
             if (token) {
-              // Передаем токен как аргумент в getUserRole
               this.authService.getUserRole(token).subscribe({
-                next: (role) => {
+                next: (roleResponse) => {
+                  const role = roleResponse.role.trim().toLowerCase();
+                  console.log('Получена роль пользователя:', role);
                   if (role === 'student') {
+                    console.log('Перенаправление на /dashboard-student');
                     this.router.navigate(['/dashboard-student']);
                   } else if (role === 'teacher') {
+                    console.log('Перенаправление на /dashboard-teacher');
                     this.router.navigate(['/dashboard-teacher']);
+                  } else {
+                    console.error('Неизвестная роль:', role);
                   }
                 },
                 error: (err) => {
-                  console.error('Error getting user role:', err);
+                  console.error('Ошибка при получении роли пользователя:', err);
                 }
               });
             } else {
-              // Обрабатываем случай, когда токен не был найден
-              console.error('Token is missing after login');
+              console.error('Токен отсутствует после логина');
             }
           } else {
-            // Обработка неизвестной или отсутствующей роли
-            console.error('Unknown or missing role');
-            // Здесь можно добавить логику для информирования пользователя об ошибке
+            console.error('Неизвестная или отсутствующая роль');
           }
         },
         error: (err) => {
-          // Обрабатываем ошибки аутентификации
-          console.error(err);
-          // Здесь можно добавить логику для информирования пользователя о проблеме
+          console.error('Ошибка при логине:', err);
         }
       });
+    } else {
+      console.error('Форма логина невалидна');
     }
   }
-
-
 }
-

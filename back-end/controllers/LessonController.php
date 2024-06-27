@@ -15,5 +15,16 @@ class LessonController {
             return null;
         }
     }
+
+		public function getLessons() {
+			header('Content-Type: application/json');
+			try {
+					$lessons = $this->lessonService->getLessons();
+					echo json_encode($lessons);
+			} catch (Exception $e) {
+					http_response_code(500);
+					echo json_encode(['error' => $e->getMessage()]);
+			}
+	}
 }
 ?>

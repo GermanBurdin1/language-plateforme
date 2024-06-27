@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { VideoCallComponent } from '../video-call/video-call.component';
+import { AuthService } from '../../../../../auth.service';
+import { VideoCallComponent } from '../../../../../video-call/video-call.component';
 
 @Component({
-  selector: 'app-dashboard-teacher',
-  templateUrl: './dashboard-teacher.component.html',
-  styleUrls: ['./dashboard-teacher.component.scss']
+  selector: 'app-personal-cabinet',
+  templateUrl: './personal-cabinet.component.html',
+  styleUrls: ['./personal-cabinet.component.scss']
 })
-export class DashboardTeacherComponent implements OnInit {
+export class PersonalCabinetComponent implements OnInit {
   name: string = '';
   token: string | null = null;
 
