@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../services/TeacherAvailabilityService.php';
-require_once __DIR__ . '/../models/TeacherAvailability.php';
+require_once '../services/TeacherAvailabilityService.php';
+require_once '../models/TeacherAvailability.php';
 
 class TeacherAvailabilityController {
     private $service;
@@ -10,13 +10,17 @@ class TeacherAvailabilityController {
     }
 
     public function addAvailability($data) {
-        $availability = new TeacherAvailability(
-            $data->teacher_id,
-            $data->available_date,
-            $data->available_time
-        );
+        $availability = new TeacherAvailability();
+        $availability->teacher_id = $data->teacher_id;
+        $availability->available_date = $data->available_date;
+        $availability->available_time = $data->available_time;
 
         return $this->service->addAvailability($availability);
     }
+
+		public function getAvailability($teacher_id) {
+			return $this->service->getAvailability($teacher_id);
+	}
 }
 ?>
+

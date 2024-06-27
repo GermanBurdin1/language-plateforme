@@ -4,12 +4,17 @@
     <ul>
       <li *ngFor="let lesson of lessons">
         {{ lesson.teacherName }} - {{ lesson.date }} {{ lesson.time }}
+        <app-personal-cabinet></app-personal-cabinet>
+      </li>
+      <li *ngFor="let availability of teacherAvailability">
+        Cours à venir: {{ availability.available_date }} {{ availability.available_time }}
+        <app-personal-cabinet></app-personal-cabinet>
       </li>
     </ul>
   </div>
 
   <div class="availability-form">
-    <h2>Définir Disponibilité</h2>
+    <h2>Programmer un nouveau cours</h2>
     <form (ngSubmit)="addAvailability()">
       <label for="date">Date:</label>
       <input type="date" id="date" [(ngModel)]="newAvailability.date" name="date" required>
@@ -20,6 +25,5 @@
       <button type="submit">Confirmer</button>
     </form>
   </div>
-  <app-personal-cabinet></app-personal-cabinet>
 </div>
 <router-outlet></router-outlet>
