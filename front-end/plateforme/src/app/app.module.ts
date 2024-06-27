@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardTeacherComponent } from './dashboard/dashboard-teacher.component';
+import { DashboardTeacherComponent } from './dashboard/teacher/dashboard-teacher.component';
 import { VideoCallComponent } from './video-call/video-call.component';
 import { DashboardStudentComponent } from './dashboard/student/dashboard-student.component';
 import { DictionaryComponent } from './dashboard/student/features/dictionary/dictionary.component';

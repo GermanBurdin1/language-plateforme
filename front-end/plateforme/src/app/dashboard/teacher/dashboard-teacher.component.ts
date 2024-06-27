@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { VideoCallComponent } from '../video-call/video-call.component';
+import { AuthService } from '../../auth.service';
+import { VideoCallComponent } from '../../video-call/video-call.component';
 
 @Component({
   selector: 'app-dashboard-teacher',
