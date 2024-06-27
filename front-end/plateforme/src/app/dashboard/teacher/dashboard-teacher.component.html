@@ -1,11 +1,18 @@
-<div class="personal-cabinet">
-  <h2>Bienvenue, {{ name }}!</h2>
-
-  <!-- Composant d'appel vidéo qui gère l'appel lui-même -->
-  <app-video-call #videoCall></app-video-call>
-
-  <!-- Boutons pour démarrer et terminer l'appel vidéo -->
-  <button class="call-button start-button" (click)="videoCall.startCall()">Démarrer l'appel</button>
-  <button class="call-button end-button" (click)="videoCall.endCall()">Terminer l'appel</button>
-</div>
-
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-teacher/my-page" routerLinkActive="active">My Page</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" routerLink="/dashboard-teacher/lessons" routerLinkActive="active">My lessons</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-teacher/dictionary" routerLinkActive="active">Dictionary</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard-teacher/settings" routerLinkActive="active">Settings</a>
+  </li>
+  <button type="button" class="btn btn-primary rounded-circle position-fixed" style="right: 20px; top: 20px; width: 50px; height: 50px; z-index: 1050;" (click)="openSettingsModal()">
+    <i class="fas fa-cog"></i>
+  </button>
+</ul>
+<router-outlet></router-outlet>

@@ -27,7 +27,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 // Import ConfirmationDialogComponent
-import { ConfirmationDialogComponent } from './dashboard/student/features/lessons/confirmation-dialog/confirmation-dialog.component'
+import { ConfirmationDialogComponent } from './dashboard/student/features/lessons/confirmation-dialog/confirmation-dialog.component';
+import { PersonalCabinetComponent } from './dashboard/teacher/tabs/lessons/personal-cabinet/personal-cabinet.component';
+import { TeacherConfirmationDialogComponent } from './dashboard/teacher/tabs/lessons/teacher-confirmation-dialog/teacher-confirmation-dialog.component';
+import { TeacherMyPageComponent } from './dashboard/teacher/tabs/myPage/teacher-my-page/teacher-my-page.component';
+import { TeacherChatComponent } from './dashboard/teacher/tabs/myPage/teacher-chat/teacher-chat.component';
+import { TeacherPhotosComponent } from './dashboard/teacher/tabs/myPage/teacher-photos/teacher-photos.component';
+import { TeacherSettingsComponent } from './dashboard/teacher/tabs/teacher-settings/teacher-settings.component'
 
 @NgModule({
   declarations: [
@@ -47,7 +53,13 @@ import { ConfirmationDialogComponent } from './dashboard/student/features/lesson
     PhotosComponent,
     ChatComponent,
     WordComponent,
-    ConfirmationDialogComponent, // Add the confirmation dialog component
+    ConfirmationDialogComponent,
+    PersonalCabinetComponent,
+    TeacherConfirmationDialogComponent,
+    TeacherMyPageComponent,
+    TeacherChatComponent,
+    TeacherPhotosComponent,
+    TeacherSettingsComponent, // Add the confirmation dialog component
   ],
   imports: [
     NgbModule,
