@@ -30,5 +30,25 @@ class LessonService {
             return null;
         }
     }
+
+		public function getLessons() {
+			$pdo = $this->dbService->getConnection();
+			$sql = "SELECT l.id, l.teacher_id, l.student_id, l.lesson_time, u.name as teacher_name 
+							FROM lesson l 
+							JOIN person u ON l.teacher_id = u.Id_person";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute();
+			$lessons = [];
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					$lessons[] = new Lesson(
+							$row['id'],
+							$row['teacher_id'],
+							$row['student_id'],
+							$row['lesson_time'],
+							$row['teacher_name']
+					);
+			}
+			return $lessons;
+	}
 }
 ?>
