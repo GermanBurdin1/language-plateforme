@@ -122,3 +122,6 @@ User authenticated successfully: {"Id_person":36,"e_mail":"teacher@teacher.com",
 Authenticating user with email: teacher@teacher.com
 Found user: {"Id_person":36,"e_mail":"teacher@teacher.com","login":"teacher1","password":"$2y$10$iVUwKSsTbo7OXN5HZ6PFuOX9Gt0Qu6m\/qh93rrfFDo2oQvQLFpKWK","name":"German","is_verified":0,"verification_token":"97eeccac038d4aba8857256a8bd34b60","role":"teacher"}
 User authenticated successfully: {"Id_person":36,"e_mail":"teacher@teacher.com","login":"teacher1","password":"$2y$10$iVUwKSsTbo7OXN5HZ6PFuOX9Gt0Qu6m\/qh93rrfFDo2oQvQLFpKWK","name":"German","is_verified":0,"verification_token":"97eeccac038d4aba8857256a8bd34b60","role":"teacher"}
+Authenticating user with email: teacher@teacher.com
+Found user: {"Id_person":36,"e_mail":"teacher@teacher.com","login":"teacher1","password":"$2y$10$iVUwKSsTbo7OXN5HZ6PFuOX9Gt0Qu6m\/qh93rrfFDo2oQvQLFpKWK","name":"German","is_verified":0,"verification_token":"97eeccac038d4aba8857256a8bd34b60","role":"teacher"}
+User authenticated successfully: {"Id_person":36,"e_mail":"teacher@teacher.com","login":"teacher1","password":"$2y$10$iVUwKSsTbo7OXN5HZ6PFuOX9Gt0Qu6m\/qh93rrfFDo2oQvQLFpKWK","name":"German","is_verified":0,"verification_token":"97eeccac038d4aba8857256a8bd34b60","role":"teacher"}

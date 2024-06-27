@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { TeacherConfirmationDialogComponent } from './teacher-confirmation-dialog/teacher-confirmation-dialog.component';
 
 interface Person {
   id: number;
@@ -19,10 +19,10 @@ interface Lesson {
 
 @Component({
   selector: 'app-lessons',
-  templateUrl: './lessons.component.html',
-  styleUrls: ['./lessons.component.scss']
+  templateUrl: './teacher-lessons.component.html',
+  styleUrls: ['./teacher-lessons.component.scss']
 })
-export class LessonsComponent implements OnInit {
+export class TeacherLessonsComponent implements OnInit {
   teachers: Person[] = [];
   lessons: Lesson[] = [];
 
@@ -75,7 +75,7 @@ export class LessonsComponent implements OnInit {
   }
 
   openConfirmationDialog(message: string) {
-    this.dialog.open(ConfirmationDialogComponent, {
+    this.dialog.open(TeacherConfirmationDialogComponent, {
       data: {
         message: message
       }
