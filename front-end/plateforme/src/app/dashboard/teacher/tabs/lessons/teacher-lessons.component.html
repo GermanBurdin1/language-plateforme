@@ -1,6 +1,6 @@
 <div class="lessons-container">
   <div class="lessons-list">
-    <h2>Vos Cours Réservés</h2>
+    <h2>Vos Cours à venir</h2>
     <ul>
       <li *ngFor="let lesson of lessons">
         {{ lesson.teacherName }} - {{ lesson.date }} {{ lesson.time }}
@@ -8,20 +8,18 @@
     </ul>
   </div>
 
-  <div class="teachers-list">
-    <h1>Enseignants Disponibles</h1>
-    <div class="teacher-card" *ngFor="let teacher of teachers">
-      <h2>{{ teacher.name }}</h2>
-      <p>{{ teacher.email }}</p>
-      <h3>Heures Disponibles :</h3>
-      <ul>
-        <li *ngFor="let time of teacher.availableTimes">
-          {{ time.date }} {{ time.time }}
-          <button (click)="bookLesson(teacher, time.date, time.time)">Réserver un Cours</button>
-        </li>
-      </ul>
-      <button *ngIf="teacher.availableTimes?.length === 0" (click)="loadTeachers()">Réserver le prochain cours</button>
-    </div>
+  <div class="availability-form">
+    <h2>Définir Disponibilité</h2>
+    <form (ngSubmit)="addAvailability()">
+      <label for="date">Date:</label>
+      <input type="date" id="date" [(ngModel)]="newAvailability.date" name="date" required>
+
+      <label for="time">Heure:</label>
+      <input type="time" id="time" [(ngModel)]="newAvailability.time" name="time" required>
+
+      <button type="submit">Confirmer</button>
+    </form>
   </div>
   <app-personal-cabinet></app-personal-cabinet>
 </div>
+<router-outlet></router-outlet>

@@ -25,6 +25,7 @@ interface Lesson {
 export class TeacherLessonsComponent implements OnInit {
   teachers: Person[] = [];
   lessons: Lesson[] = [];
+  newAvailability: { date: string, time: string } = { date: '', time: '' };
 
   constructor(private http: HttpClient, public dialog: MatDialog) {}
 
@@ -55,37 +56,21 @@ export class TeacherLessonsComponent implements OnInit {
     });
   }
 
-  bookLesson(teacher: Person, date: string, time: string) {
-    const bookingData = {
-      teacher_id: teacher.id,
-      student_id: 1, // Пример: идентификатор текущего студента
-      lesson_time: `${date} ${time}`
+  addAvailability() {
+    const availabilityData = {
+      teacher_id: 1, // Здесь должен быть идентификатор текущего преподавателя
+      available_date: this.newAvailability.date,
+      available_time: this.newAvailability.time
     };
 
-    this.http.post('http://learn-lang-platform.local/back-end/api/bookLesson.php', bookingData).subscribe({
+    this.http.post('http://learn-lang-platform.local/back-end/api/addAvailability.php', availabilityData).subscribe({
       next: (response) => {
-        this.openConfirmationDialog('Vous avez bien réservé votre cours!');
-        this.loadLessons();
-        this.updateTeacherAvailability(teacher.id, date, time);
+        this.loadTeachers();
+        this.newAvailability = { date: '', time: '' };
       },
       error: (error) => {
-        console.error('Error booking lesson', error);
+        console.error('Error adding availability', error);
       }
     });
-  }
-
-  openConfirmationDialog(message: string) {
-    this.dialog.open(TeacherConfirmationDialogComponent, {
-      data: {
-        message: message
-      }
-    });
-  }
-
-  updateTeacherAvailability(teacherId: number, date: string, time: string) {
-    const teacher = this.teachers.find(t => t.id === teacherId);
-    if (teacher) {
-      teacher.availableTimes = teacher.availableTimes?.filter(t => t.date !== date || t.time !== time);
-    }
   }
 }
