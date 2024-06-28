@@ -3,13 +3,17 @@
     <h2 (click)="toggleThemes()">Themes</h2>
     <ul>
       <li *ngFor="let theme of getFilteredThemes()">
-        <span *ngIf="editItem !== theme" [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
-          {{ theme.name }}
-        </span>
-        <input *ngIf="editItem === theme" [(ngModel)]="editItemName" (blur)="updateItem()" (keydown.enter)="updateItem()" />
-        <button class="edit-button" (click)="editTheme(theme)" title="Edit" *ngIf="editItem !== theme">
-          <i class="fas fa-edit"></i>
-        </button>
+        <ng-container *ngIf="editItem !== theme; else editTemplate">
+          <span [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
+            {{ theme.name }}
+          </span>
+          <button class="edit-button" (click)="editTheme(theme)" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+        </ng-container>
+        <ng-template #editTemplate>
+          <input [(ngModel)]="editItemName" (blur)="updateItem()" (keydown.enter)="updateItem()" />
+        </ng-template>
         <button class="delete-button" (click)="deleteTheme(theme)" title="Delete">
           <i class="fas fa-trash-alt"></i>
         </button>
@@ -32,17 +36,26 @@
         <li [ngClass]="getClassForTopic(topic)"
             [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800', 'position': 'relative', 'padding-right': '40px'} : {}"
             (click)="onTopicClick(topic)">
-          <span *ngIf="editItem !== topic">{{ isTheme(topic) ? topic.name : topic }}</span>
-          <input *ngIf="editItem === topic" [(ngModel)]="editItemName" (blur)="updateItem()" (keydown.enter)="updateItem()" />
-          <span *ngIf="isTheme(topic) && editItem !== topic" [ngStyle]="{'position': 'absolute', 'right': '10px', 'color': '#ff9800', 'font-weight': 'bold'}">
-            {{ getSubthemeCount(topic) }} items
-          </span>
-          <button class="edit-button" (click)="editSubtheme(i)" title="Edit" *ngIf="editItem !== topic">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="delete-button" (click)="deleteSubtheme(i)" title="Delete">
-            <i class="fas fa-trash-alt"></i>
-          </button>
+          <div class="flip-card" [ngClass]="{'flipped': flipped[getTopicKey(topic)]}">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <span *ngIf="editItem !== topic">{{ getTopicName(topic) }}</span>
+                <input *ngIf="editItem === topic" [(ngModel)]="editItemName" (blur)="updateItem()" (keydown.enter)="updateItem()" />
+                <span *ngIf="isTheme(topic) && editItem !== topic" [ngStyle]="{'position': 'absolute', 'right': '10px', 'color': '#ff9800', 'font-weight': 'bold'}">
+                  {{ getSubthemeCount(topic) }} items
+                </span>
+                <button class="edit-button" (click)="editSubtheme(i)" title="Edit" *ngIf="editItem !== topic">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-button" (click)="deleteSubtheme(i)" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="flip-card-back" *ngIf="isTranslatableTopic(topic)">
+                <span>{{ getTopicTranslation(topic) }}</span>
+              </div>
+            </div>
+          </div>
         </li>
       </ng-container>
     </ul>

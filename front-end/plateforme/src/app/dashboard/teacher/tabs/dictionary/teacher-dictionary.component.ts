@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 
 interface Theme {
   name: string;
-  topics: (string | Theme)[];
+  topics: (string | TranslatableTopic | Theme)[];
+}
+
+interface TranslatableTopic {
+  name: string;
+  translation: string;
 }
 
 @Component({
@@ -14,38 +19,75 @@ export class TeacherDictionaryComponent {
   themes: Theme[] = [
     {
       name: 'Animals',
-      topics: ['Dog', 'Cat', 'Elephant', {
-        name: 'Birds',
-        topics: ['Eagle', 'Parrot', 'Sparrow', {
-          name: 'Water Birds',
-          topics: ['Duck', 'Swan', 'Goose']
-        }]
-      }]
+      topics: [
+        { name: 'Dog', translation: 'Chien' },
+        { name: 'Cat', translation: 'Chat' },
+        { name: 'Elephant', translation: 'Éléphant' },
+        {
+          name: 'Birds',
+          topics: [
+            { name: 'Eagle', translation: 'Aigle' },
+            { name: 'Parrot', translation: 'Perroquet' },
+            { name: 'Sparrow', translation: 'Moineau' },
+            {
+              name: 'Water Birds',
+              topics: [
+                { name: 'Duck', translation: 'Canard' },
+                { name: 'Swan', translation: 'Cygne' },
+                { name: 'Goose', translation: 'Oie' }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       name: 'Plants',
       topics: [
-        'Tree',
-        'Flower',
-        'Grass',
+        { name: 'Tree', translation: 'Arbre' },
+        { name: 'Flower', translation: 'Fleur' },
+        { name: 'Grass', translation: 'Herbe' },
         {
           name: 'Flowers',
-          topics: ['Rose', 'Tulip', 'Sunflower', {
-            name: 'Garden Flowers',
-            topics: ['Daisy', 'Marigold', 'Lily']
-          }]
+          topics: [
+            { name: 'Rose', translation: 'Rose' },
+            { name: 'Tulip', translation: 'Tulipe' },
+            { name: 'Sunflower', translation: 'Tournesol' },
+            {
+              name: 'Garden Flowers',
+              topics: [
+                { name: 'Daisy', translation: 'Marguerite' },
+                { name: 'Marigold', translation: 'Souci' },
+                { name: 'Lily', translation: 'Lys' }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       name: 'Technology',
-      topics: ['Computer', 'Smartphone', 'Internet', {
-        name: 'Software',
-        topics: ['Operating System', 'Application', 'Driver', {
-          name: 'Web Development',
-          topics: ['HTML', 'CSS', 'JavaScript']
-        }]
-      }]
+      topics: [
+        { name: 'Computer', translation: 'Ordinateur' },
+        { name: 'Smartphone', translation: 'Téléphone intelligent' },
+        { name: 'Internet', translation: 'Internet' },
+        {
+          name: 'Software',
+          topics: [
+            { name: 'Operating System', translation: 'Système d\'exploitation' },
+            { name: 'Application', translation: 'Application' },
+            { name: 'Driver', translation: 'Pilote' },
+            {
+              name: 'Web Development',
+              topics: [
+                { name: 'HTML', translation: 'HTML' },
+                { name: 'CSS', translation: 'CSS' },
+                { name: 'JavaScript', translation: 'JavaScript' }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ];
 
@@ -57,6 +99,7 @@ export class TeacherDictionaryComponent {
   editMode: boolean = false;
   editItem: any = null;
   editItemName: string = '';
+  flipped: { [key: string]: boolean } = {};
 
   get isRoot(): boolean {
     return this.currentTheme === null;
@@ -78,21 +121,28 @@ export class TeacherDictionaryComponent {
     this.currentTheme = null;
   }
 
-  onTopicClick(topic: Theme | string): void {
+  onTopicClick(topic: Theme | TranslatableTopic | string): void {
     if (this.isTheme(topic)) {
       this.selectTheme(topic);
+    } else if (this.isTranslatableTopic(topic)) {
+      const key = this.getTopicKey(topic);
+      this.flipped[key] = !this.flipped[key];
     }
   }
 
   isTheme(topic: any): topic is Theme {
-    return (topic as Theme).name !== undefined && (topic as Theme).topics !== undefined;
+    return topic && typeof topic === 'object' && 'name' in topic && 'topics' in topic;
+  }
+
+  isTranslatableTopic(topic: any): topic is TranslatableTopic {
+    return topic && typeof topic === 'object' && 'translation' in topic;
   }
 
   getSubthemeCount(topic: Theme): number {
     return topic.topics.length;
   }
 
-  sortThemes(themes: (string | Theme)[]): (string | Theme)[] {
+  sortThemes(themes: (string | TranslatableTopic | Theme)[]): (string | TranslatableTopic | Theme)[] {
     return themes.sort((a, b) => {
       if (this.isTheme(a) && this.isTheme(b)) {
         return this.getSubthemeCount(b) - this.getSubthemeCount(a);
@@ -103,7 +153,7 @@ export class TeacherDictionaryComponent {
     });
   }
 
-  getClassForTopic(topic: Theme | string): string {
+  getClassForTopic(topic: Theme | TranslatableTopic | string): string {
     if (this.isTheme(topic)) {
       return 'sub-theme';
     }
@@ -133,7 +183,7 @@ export class TeacherDictionaryComponent {
 
   addWord(): void {
     if (this.newWordName && this.currentTheme) {
-      this.currentTheme.topics.push(this.newWordName);
+      this.currentTheme.topics.push({ name: this.newWordName, translation: 'Translation' }); // Placeholder translation
       this.newWordName = '';
     }
   }
@@ -163,8 +213,8 @@ export class TeacherDictionaryComponent {
       this.editItem = subtheme;
       this.editItemName = subtheme.name;
     } else {
-      this.editItem = { index, name: subtheme };
-      this.editItemName = subtheme as string;
+      this.editItem = { index, name: (subtheme as TranslatableTopic).name };
+      this.editItemName = (subtheme as TranslatableTopic).name;
     }
     this.editMode = true;
   }
@@ -173,7 +223,12 @@ export class TeacherDictionaryComponent {
     if (this.isTheme(this.editItem)) {
       this.editItem.name = this.editItemName;
     } else if (this.editItem.index !== undefined && this.currentTheme) {
-      this.currentTheme.topics[this.editItem.index] = this.editItemName;
+      const item = this.currentTheme.topics[this.editItem.index];
+      if (this.isTranslatableTopic(item)) {
+        item.name = this.editItemName;
+      } else {
+        this.currentTheme.topics[this.editItem.index] = this.editItemName;
+      }
     }
     this.editMode = false;
     this.editItem = null;
@@ -184,5 +239,36 @@ export class TeacherDictionaryComponent {
     this.editMode = false;
     this.editItem = null;
     this.editItemName = '';
+  }
+
+  getTopicKey(topic: TranslatableTopic | Theme | string): string {
+    if (typeof topic === 'string') {
+      return topic;
+    }
+    if (this.isTranslatableTopic(topic)) {
+      return topic.name;
+    }
+    if (this.isTheme(topic)) {
+      return topic.name;
+    }
+    return '';
+  }
+
+  getTopicName(topic: Theme | TranslatableTopic | string): string {
+    if (this.isTheme(topic)) {
+      return topic.name;
+    } else if (this.isTranslatableTopic(topic)) {
+      return topic.name;
+    } else {
+      return topic;
+    }
+  }
+
+  getTopicTranslation(topic: Theme | TranslatableTopic | string): string {
+    if (this.isTranslatableTopic(topic)) {
+      return topic.translation;
+    } else {
+      return '';
+    }
   }
 }
