@@ -152,22 +152,21 @@ export class TeacherDictionaryComponent {
   }
 
   editTheme(theme: Theme): void {
-    this.editMode = true;
     this.editItem = theme;
     this.editItemName = theme.name;
+    this.editMode = true;
   }
 
   editSubtheme(index: number): void {
     const subtheme = this.currentTheme?.topics[index];
     if (this.isTheme(subtheme)) {
-      this.editMode = true;
       this.editItem = subtheme;
       this.editItemName = subtheme.name;
     } else {
-      this.editMode = true;
       this.editItem = { index, name: subtheme };
       this.editItemName = subtheme as string;
     }
+    this.editMode = true;
   }
 
   updateItem(): void {
