@@ -56,10 +56,11 @@
         color: white;
         border: none;
         border-radius: 4px;
-        padding: 5px 10px;
+        padding: 5px;
         cursor: pointer;
         transition: background-color 0.3s, opacity 0.3s;
         opacity: 0;
+        font-size: 0.8em;
 
         &:hover {
           background-color: rgba(192, 57, 43, 0.7);
@@ -166,11 +167,82 @@
       border-radius: 8px;
       border-left: 5px solid #1976d2;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
 
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+
+        .edit-button, .delete-button {
+          opacity: 1;
+        }
+      }
+
+      .edit-button, .delete-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        background-color: rgba(231, 76, 60, 0.7);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, opacity 0.3s;
+        opacity: 0;
+        font-size: 0.8em;
+
+        &:hover {
+          background-color: rgba(192, 57, 43, 0.7);
+        }
+      }
+
+      .edit-button {
+        right: 50px;
+        background-color: rgba(52, 152, 219, 0.7);
+
+        &:hover {
+          background-color: rgba(41, 128, 185, 0.7);
+        }
+      }
+
+      .sub-theme-count {
+        background-color: #ff9800;
+        color: white;
+        border-radius: 50%;
+        padding: 10px 15px;
+        font-size: 0.8em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto; /* Сдвигаем элемент вправо */
       }
     }
+  }
+
+  .add-subtheme, .add-word {
+    margin-top: 20px;
+  }
+
+  .add-subtheme input, .add-word input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .add-subtheme button, .add-word button {
+    padding: 10px 20px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .add-subtheme button:hover, .add-word button:hover {
+    background-color: #155a9a;
   }
 }
