@@ -6,7 +6,12 @@
         <span [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
           {{ theme.name }}
         </span>
-        <button (click)="deleteTheme(theme)">Delete</button>
+        <button class="edit-button" (click)="editTheme(theme)" title="Edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="delete-button" (click)="deleteTheme(theme)" title="Delete">
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </li>
     </ul>
     <div class="add-theme">
@@ -30,7 +35,12 @@
           <span *ngIf="isTheme(topic)" [ngStyle]="{'position': 'absolute', 'right': '10px', 'color': '#ff9800', 'font-weight': 'bold'}">
             {{ getSubthemeCount(topic) }} items
           </span>
-          <button (click)="deleteSubtheme(i)">Delete</button>
+          <button class="edit-button" (click)="editSubtheme(i)" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete-button" (click)="deleteSubtheme(i)" title="Delete">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </li>
       </ng-container>
     </ul>
@@ -49,4 +59,13 @@
       </form>
     </div>
   </div>
+</div>
+
+<div *ngIf="editMode" class="edit-modal">
+  <h3>Edit {{ editItem?.name || editItem }}</h3>
+  <form (ngSubmit)="updateItem()">
+    <input [(ngModel)]="editItemName" name="editItemName" placeholder="New Name" required />
+    <button type="submit">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </form>
 </div>

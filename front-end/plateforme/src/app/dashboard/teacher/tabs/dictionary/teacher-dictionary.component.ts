@@ -54,6 +54,10 @@ export class TeacherDictionaryComponent {
   newSubthemeName: string = '';
   newWordName: string = '';
 
+  editMode: boolean = false;
+  editItem: any = null;
+  editItemName: string = '';
+
   get isRoot(): boolean {
     return this.currentTheme === null;
   }
@@ -146,5 +150,40 @@ export class TeacherDictionaryComponent {
       this.currentTheme.topics.splice(index, 1);
     }
   }
-}
 
+  editTheme(theme: Theme): void {
+    this.editMode = true;
+    this.editItem = theme;
+    this.editItemName = theme.name;
+  }
+
+  editSubtheme(index: number): void {
+    const subtheme = this.currentTheme?.topics[index];
+    if (this.isTheme(subtheme)) {
+      this.editMode = true;
+      this.editItem = subtheme;
+      this.editItemName = subtheme.name;
+    } else {
+      this.editMode = true;
+      this.editItem = { index, name: subtheme };
+      this.editItemName = subtheme as string;
+    }
+  }
+
+  updateItem(): void {
+    if (this.isTheme(this.editItem)) {
+      this.editItem.name = this.editItemName;
+    } else if (this.editItem.index !== undefined && this.currentTheme) {
+      this.currentTheme.topics[this.editItem.index] = this.editItemName;
+    }
+    this.editMode = false;
+    this.editItem = null;
+    this.editItemName = '';
+  }
+
+  cancelEdit(): void {
+    this.editMode = false;
+    this.editItem = null;
+    this.editItemName = '';
+  }
+}
