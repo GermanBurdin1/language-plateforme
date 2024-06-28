@@ -51,8 +51,15 @@
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </div>
-              <div class="flip-card-back" *ngIf="isTranslatableTopic(topic)">
-                <span>{{ getTopicTranslation(topic) }}</span>
+              <div class="flip-card-back" *ngIf="isTranslatableTopic(topic)" [ngStyle]="{'background-color': '#d5ec9b'}">
+                <span *ngIf="editItem !== topic">{{ getTopicTranslation(topic) }}</span>
+                <input *ngIf="editItem === topic" [(ngModel)]="editItemTranslation" (blur)="updateItem()" (keydown.enter)="updateItem()" />
+                <button class="edit-button" (click)="editSubtheme(i)" title="Edit" *ngIf="editItem !== topic">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-button" (click)="deleteSubtheme(i)" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               </div>
             </div>
           </div>

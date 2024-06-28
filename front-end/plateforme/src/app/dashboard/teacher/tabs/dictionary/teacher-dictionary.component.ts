@@ -8,6 +8,7 @@ interface Theme {
 interface TranslatableTopic {
   name: string;
   translation: string;
+  editTranslation?: string; // Добавляем поле для редактирования перевода
 }
 
 @Component({
@@ -99,6 +100,7 @@ export class TeacherDictionaryComponent {
   editMode: boolean = false;
   editItem: any = null;
   editItemName: string = '';
+  editItemTranslation: string = ''; // Добавляем поле для редактирования перевода
   flipped: { [key: string]: boolean } = {};
 
   get isRoot(): boolean {
@@ -215,6 +217,7 @@ export class TeacherDictionaryComponent {
     } else {
       this.editItem = { index, name: (subtheme as TranslatableTopic).name };
       this.editItemName = (subtheme as TranslatableTopic).name;
+      this.editItemTranslation = (subtheme as TranslatableTopic).translation; // Устанавливаем перевод для редактирования
     }
     this.editMode = true;
   }
@@ -226,6 +229,7 @@ export class TeacherDictionaryComponent {
       const item = this.currentTheme.topics[this.editItem.index];
       if (this.isTranslatableTopic(item)) {
         item.name = this.editItemName;
+        item.translation = this.editItemTranslation; // Обновляем перевод
       } else {
         this.currentTheme.topics[this.editItem.index] = this.editItemName;
       }
@@ -233,12 +237,14 @@ export class TeacherDictionaryComponent {
     this.editMode = false;
     this.editItem = null;
     this.editItemName = '';
+    this.editItemTranslation = ''; // Сбрасываем поле для редактирования перевода
   }
 
   cancelEdit(): void {
     this.editMode = false;
     this.editItem = null;
     this.editItemName = '';
+    this.editItemTranslation = ''; // Сбрасываем поле для редактирования перевода
   }
 
   getTopicKey(topic: TranslatableTopic | Theme | string): string {
