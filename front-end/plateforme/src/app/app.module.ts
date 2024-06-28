@@ -39,6 +39,7 @@ import { TeacherSettingsComponent } from './dashboard/teacher/tabs/teacher-setti
 import { TeacherLessonsComponent } from './dashboard/teacher/tabs/lessons/teacher-lessons.component';
 import { StudentLessonsComponent } from './dashboard/student/features/lessons/student-lessons.component';
 import { TeacherDictionaryComponent } from './dashboard/teacher/tabs/dictionary/teacher-dictionary.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -75,13 +76,16 @@ import { TeacherDictionaryComponent } from './dashboard/teacher/tabs/dictionary/
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
     RouterModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent],
   // Add entryComponents for the dialog
 })
