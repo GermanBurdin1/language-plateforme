@@ -6,6 +6,13 @@
         {{ theme.name }}
       </li>
     </ul>
+    <div class="add-theme">
+      <h3>Add New Theme</h3>
+      <form (ngSubmit)="addTheme()">
+        <input [(ngModel)]="newThemeName" name="newThemeName" placeholder="New Theme Name" required />
+        <button type="submit">Add Theme</button>
+      </form>
+    </div>
   </div>
 
   <div class="theme-details" *ngIf="currentTheme && !isRoot">
@@ -23,5 +30,13 @@
         </li>
       </ng-container>
     </ul>
+    <div class="add-subtheme" *ngIf="currentTheme">
+      <h3>Add New Subtheme</h3>
+      <form (ngSubmit)="addSubtheme()">
+        <input [(ngModel)]="newSubthemeName" name="newSubthemeName" placeholder="New Subtheme Name" required />
+        <button type="submit">Add Subtheme</button>
+      </form>
+    </div>
   </div>
 </div>
+

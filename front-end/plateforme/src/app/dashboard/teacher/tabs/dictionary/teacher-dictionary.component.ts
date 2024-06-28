@@ -50,6 +50,8 @@ export class TeacherDictionaryComponent {
   ];
 
   currentTheme: Theme | null = null;
+  newThemeName: string = '';
+  newSubthemeName: string = '';
 
   get isRoot(): boolean {
     return this.currentTheme === null;
@@ -108,5 +110,19 @@ export class TeacherDictionaryComponent {
       return this.themes.filter(theme => theme.name !== this.currentTheme?.name);
     }
     return this.themes;
+  }
+
+  addTheme(): void {
+    if (this.newThemeName) {
+      this.themes.push({ name: this.newThemeName, topics: [] });
+      this.newThemeName = '';
+    }
+  }
+
+  addSubtheme(): void {
+    if (this.newSubthemeName && this.currentTheme) {
+      this.currentTheme.topics.push(this.newSubthemeName);
+      this.newSubthemeName = '';
+    }
   }
 }

@@ -67,6 +67,31 @@
       }
     }
   }
+
+  .add-theme, .add-subtheme {
+    margin-top: 20px;
+  }
+
+  .add-theme input, .add-subtheme input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .add-theme button, .add-subtheme button {
+    padding: 10px 20px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .add-theme button:hover, .add-subtheme button:hover {
+    background-color: #155a9a;
+  }
 }
 
 .theme-details {
