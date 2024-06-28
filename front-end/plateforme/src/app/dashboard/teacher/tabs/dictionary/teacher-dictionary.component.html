@@ -1,8 +1,8 @@
 <div class="dictionary-container">
   <div class="themes-list">
     <h2 (click)="toggleThemes()">Themes</h2>
-    <ul *ngIf="isRoot">
-      <li *ngFor="let theme of themes" [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
+    <ul>
+      <li *ngFor="let theme of getFilteredThemes()" [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
         {{ theme.name }}
       </li>
     </ul>
@@ -10,7 +10,7 @@
 
   <div class="theme-details" *ngIf="currentTheme && !isRoot">
     <h2>{{ currentTheme.name }}</h2>
-    <button class="back-button" (click)="goBack()">Back</button>
+    <button class="back-button" (click)="clearCurrentTheme()">Back</button>
     <ul>
       <ng-container *ngFor="let topic of currentTheme.topics">
         <li [ngClass]="getClassForTopic(topic)"
@@ -23,4 +23,3 @@
     </ul>
   </div>
 </div>
-

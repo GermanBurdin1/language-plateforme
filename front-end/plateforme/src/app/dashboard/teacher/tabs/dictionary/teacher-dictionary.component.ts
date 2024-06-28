@@ -50,8 +50,6 @@ export class TeacherDictionaryComponent {
   ];
 
   currentTheme: Theme | null = null;
-  previousThemes: Theme[] = [];
-  themeStack: Theme[] = [];
 
   get isRoot(): boolean {
     return this.currentTheme === null;
@@ -62,18 +60,21 @@ export class TeacherDictionaryComponent {
       this.currentTheme = { name: 'Root', topics: this.sortThemes(this.themes) };
     } else {
       this.currentTheme = null;
-      this.previousThemes = [];
-      this.themeStack = [];
     }
   }
 
   selectTheme(theme: Theme): void {
-    this.themeStack.push(this.currentTheme as Theme);
     this.currentTheme = { ...theme, topics: this.sortThemes(theme.topics) };
   }
 
-  goBack(): void {
-    this.currentTheme = this.themeStack.pop() || null;
+  clearCurrentTheme(): void {
+    this.currentTheme = null;
+  }
+
+  onTopicClick(topic: Theme | string): void {
+    if (this.isTheme(topic)) {
+      this.selectTheme(topic);
+    }
   }
 
   isTheme(topic: any): topic is Theme {
@@ -102,9 +103,10 @@ export class TeacherDictionaryComponent {
     return '';
   }
 
-  onTopicClick(topic: Theme | string): void {
-    if (this.isTheme(topic)) {
-      this.selectTheme(topic);
+  getFilteredThemes(): Theme[] {
+    if (this.currentTheme) {
+      return this.themes.filter(theme => theme.name !== this.currentTheme?.name);
     }
+    return this.themes;
   }
 }
