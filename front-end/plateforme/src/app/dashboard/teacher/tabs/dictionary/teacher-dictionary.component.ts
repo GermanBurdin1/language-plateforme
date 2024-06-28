@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 interface Theme {
   name: string;
-  topics: string[];
+  topics: (string | Theme)[];
 }
 
 @Component({
@@ -12,21 +12,69 @@ interface Theme {
 })
 export class TeacherDictionaryComponent {
   themes: Theme[] = [
-    { name: 'Animals', topics: ['Dog', 'Cat', 'Elephant'] },
-    { name: 'Plants', topics: ['Tree', 'Flower', 'Grass'] },
-    { name: 'Technology', topics: ['Computer', 'Smartphone', 'Internet'] }
+    {
+      name: 'Animals',
+      topics: ['Dog', 'Cat', 'Elephant', {
+        name: 'Birds',
+        topics: ['Eagle', 'Parrot', 'Sparrow', {
+          name: 'Water Birds',
+          topics: ['Duck', 'Swan', 'Goose']
+        }]
+      }]
+    },
+    {
+      name: 'Plants',
+      topics: [
+        'Tree',
+        'Flower',
+        'Grass',
+        {
+          name: 'Flowers',
+          topics: ['Rose', 'Tulip', 'Sunflower', {
+            name: 'Garden Flowers',
+            topics: ['Daisy', 'Marigold', 'Lily']
+          }]
+        }
+      ]
+    },
+    {
+      name: 'Technology',
+      topics: ['Computer', 'Smartphone', 'Internet', {
+        name: 'Software',
+        topics: ['Operating System', 'Application', 'Driver', {
+          name: 'Web Development',
+          topics: ['HTML', 'CSS', 'JavaScript']
+        }]
+      }]
+    }
   ];
 
-  selectedTheme: Theme | null = null;
-  showThemes: boolean = false;
+  currentTheme: Theme | null = null;
+  previousThemes: Theme[] = [];
+
+  get isRoot(): boolean {
+    return this.currentTheme === null;
+  }
 
   toggleThemes(): void {
-    console.log("Toggling themes visibility");
-    this.showThemes = !this.showThemes;
+    if (this.isRoot) {
+      this.currentTheme = { name: 'Root', topics: this.themes };
+    } else {
+      this.currentTheme = null;
+      this.previousThemes = [];
+    }
   }
 
   selectTheme(theme: Theme): void {
-    console.log("Selected theme:", theme);
-    this.selectedTheme = theme;
+    this.previousThemes.push(this.currentTheme as Theme);
+    this.currentTheme = theme;
+  }
+
+  goBack(): void {
+    this.currentTheme = this.previousThemes.pop() || null;
+  }
+
+  isTheme(topic: any): topic is Theme {
+    return (topic as Theme).name !== undefined && (topic as Theme).topics !== undefined;
   }
 }
