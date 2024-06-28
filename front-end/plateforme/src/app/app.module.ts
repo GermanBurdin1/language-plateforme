@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -69,19 +70,19 @@ import { TeacherDictionaryComponent } from './dashboard/teacher/tabs/dictionary/
   ],
   imports: [
     NgbModule,
+    DragDropModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule, // Required for Angular Material
+    BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
     RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
- // Add entryComponents for the dialog
+  // Add entryComponents for the dialog
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 interface Theme {
   name: string;
@@ -8,7 +9,7 @@ interface Theme {
 interface TranslatableTopic {
   name: string;
   translation: string;
-  editTranslation?: string; // Добавляем поле для редактирования перевода
+  editTranslation?: string;
 }
 
 @Component({
@@ -275,6 +276,14 @@ export class TeacherDictionaryComponent {
       return topic.translation;
     } else {
       return '';
+    }
+  }
+
+  drop(event: CdkDragDrop<Theme[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
   }
 }

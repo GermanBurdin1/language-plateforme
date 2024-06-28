@@ -1,8 +1,8 @@
 <div class="dictionary-container">
   <div class="themes-list">
     <h2 (click)="toggleThemes()">Themes</h2>
-    <ul>
-      <li *ngFor="let theme of getFilteredThemes()">
+    <ul cdkDropList (cdkDropListDropped)="drop($event)">
+      <li *ngFor="let theme of getFilteredThemes()" cdkDrag>
         <ng-container *ngIf="editItem !== theme; else editTemplate">
           <span [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
             {{ theme.name }}
@@ -31,11 +31,11 @@
   <div class="theme-details" *ngIf="currentTheme && !isRoot">
     <h2>{{ currentTheme.name }}</h2>
     <button class="back-button" (click)="clearCurrentTheme()">Back</button>
-    <ul>
+    <ul cdkDropList (cdkDropListDropped)="drop($event)">
       <ng-container *ngFor="let topic of currentTheme.topics; let i = index">
         <li [ngClass]="getClassForTopic(topic)"
             [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800', 'position': 'relative', 'padding-right': '40px'} : {}"
-            (click)="onTopicClick(topic)">
+            (click)="onTopicClick(topic)" cdkDrag>
           <div class="flip-card" [ngClass]="{'flipped': flipped[getTopicKey(topic)]}">
             <div class="flip-card-inner">
               <div class="flip-card-front">
