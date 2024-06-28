@@ -2,7 +2,7 @@
   <div class="themes-list">
     <h2 (click)="toggleThemes()">Themes</h2>
     <ul *ngIf="isRoot">
-      <li *ngFor="let theme of themes" (click)="selectTheme(theme)">
+      <li *ngFor="let theme of themes" [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
         {{ theme.name }}
       </li>
     </ul>
@@ -13,9 +13,11 @@
     <button class="back-button" (click)="goBack()">Back</button>
     <ul>
       <ng-container *ngFor="let topic of currentTheme.topics">
-        <li [ngClass]="getClassForTopic(topic)" (click)="onTopicClick(topic)">
+        <li [ngClass]="getClassForTopic(topic)"
+            [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800'} : {}"
+            (click)="onTopicClick(topic)">
           {{ isTheme(topic) ? topic.name : topic }}
-          <span *ngIf="isTheme(topic)" class="sub-theme-count">{{ getSubthemeCount(topic) }} mots</span>
+          <span *ngIf="isTheme(topic)" class="sub-theme-count">{{ getSubthemeCount(topic) }} items</span>
         </li>
       </ng-container>
     </ul>
