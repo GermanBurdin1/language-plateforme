@@ -6,7 +6,7 @@ interface Theme {
 }
 
 @Component({
-  selector: 'app-dictionary',
+  selector: 'app-teacher-dictionary',
   templateUrl: './teacher-dictionary.component.html',
   styleUrls: ['./teacher-dictionary.component.scss']
 })
@@ -51,6 +51,7 @@ export class TeacherDictionaryComponent {
 
   currentTheme: Theme | null = null;
   previousThemes: Theme[] = [];
+  themeStack: Theme[] = [];
 
   get isRoot(): boolean {
     return this.currentTheme === null;
@@ -62,16 +63,17 @@ export class TeacherDictionaryComponent {
     } else {
       this.currentTheme = null;
       this.previousThemes = [];
+      this.themeStack = [];
     }
   }
 
   selectTheme(theme: Theme): void {
-    this.previousThemes.push(this.currentTheme as Theme);
+    this.themeStack.push(this.currentTheme as Theme);
     this.currentTheme = theme;
   }
 
   goBack(): void {
-    this.currentTheme = this.previousThemes.pop() || null;
+    this.currentTheme = this.themeStack.pop() || null;
   }
 
   isTheme(topic: any): topic is Theme {

@@ -1,25 +1,20 @@
 <div class="dictionary-container">
   <div class="themes-list">
     <h2 (click)="toggleThemes()">Themes</h2>
-    <ul *ngIf="isRoot">
+    <ul *ngIf="isRoot || !isRoot">
       <li *ngFor="let theme of themes" (click)="selectTheme(theme)">
         {{ theme.name }}
       </li>
     </ul>
   </div>
 
-  <div class="theme-details" *ngIf="!isRoot">
-    <h2>{{ currentTheme?.name }}</h2>
-    <button (click)="goBack()">Back</button>
+  <div class="theme-details" *ngIf="currentTheme && !isRoot">
+    <h2>{{ currentTheme.name }}</h2>
+    <button class="back-button" (click)="goBack()">Back</button>
     <ul>
-      <ng-container *ngFor="let topic of currentTheme?.topics">
+      <ng-container *ngFor="let topic of currentTheme.topics">
         <li *ngIf="isTheme(topic)" (click)="selectTheme(topic)">
           {{ topic.name }}
-          <ul>
-            <li *ngFor="let subTopic of topic.topics">
-              {{ subTopic }}
-            </li>
-          </ul>
         </li>
         <li *ngIf="!isTheme(topic)">
           {{ topic }}
