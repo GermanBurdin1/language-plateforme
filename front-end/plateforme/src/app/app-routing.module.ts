@@ -7,7 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { DashboardTeacherComponent } from './dashboard/teacher/dashboard-teacher.component';
 import { DashboardStudentComponent } from './dashboard/student/dashboard-student.component';
 import { TeacherLessonsComponent } from './dashboard/teacher/tabs/lessons/teacher-lessons.component';
-import { DictionaryComponent } from './dashboard/teacher/tabs/dictionary/dictionary.component';
+import { DictionaryComponent } from './dashboard/student/features/dictionary/dictionary.component';
+import { TeacherDictionaryComponent } from './dashboard/teacher/tabs/dictionary/teacher-dictionary.component';
 import { TeacherSettingsComponent } from './dashboard/teacher/tabs/teacher-settings/teacher-settings.component';
 import { MyPageComponent } from './dashboard/teacher/tabs/myPage/my-page/my-page.component';
 import { PersonalCabinetComponent } from './dashboard/teacher/tabs/lessons/personal-cabinet/personal-cabinet.component';
@@ -34,7 +35,7 @@ const routes: Routes = [
           }
         ]
       },
-      { path: 'dictionary', component: DictionaryComponent },
+      { path: 'dictionary', component: TeacherDictionaryComponent },
       { path: 'settings', component: TeacherSettingsComponent }
     ]
   },

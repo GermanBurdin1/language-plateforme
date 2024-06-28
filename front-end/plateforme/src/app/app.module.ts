@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { TeacherPhotosComponent } from './dashboard/teacher/tabs/myPage/teacher-
 import { TeacherSettingsComponent } from './dashboard/teacher/tabs/teacher-settings/teacher-settings.component'
 import { TeacherLessonsComponent } from './dashboard/teacher/tabs/lessons/teacher-lessons.component';
 import { StudentLessonsComponent } from './dashboard/student/features/lessons/student-lessons.component';
+import { TeacherDictionaryComponent } from './dashboard/teacher/tabs/dictionary/teacher-dictionary.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { StudentLessonsComponent } from './dashboard/student/features/lessons/st
     VideoCallComponent,
     DashboardStudentComponent,
     DictionaryComponent,
+    TeacherDictionaryComponent,
     SettingsComponent,
     PersonalCabinetComponent,
     StudentSettingsComponent,
@@ -66,6 +69,7 @@ import { StudentLessonsComponent } from './dashboard/student/features/lessons/st
   ],
   imports: [
     NgbModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
