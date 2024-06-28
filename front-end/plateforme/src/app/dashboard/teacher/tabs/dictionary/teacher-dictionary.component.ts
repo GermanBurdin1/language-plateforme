@@ -52,6 +52,7 @@ export class TeacherDictionaryComponent {
   currentTheme: Theme | null = null;
   newThemeName: string = '';
   newSubthemeName: string = '';
+  newWordName: string = '';
 
   get isRoot(): boolean {
     return this.currentTheme === null;
@@ -121,8 +122,29 @@ export class TeacherDictionaryComponent {
 
   addSubtheme(): void {
     if (this.newSubthemeName && this.currentTheme) {
-      this.currentTheme.topics.push(this.newSubthemeName);
+      this.currentTheme.topics.push({ name: this.newSubthemeName, topics: [] });
       this.newSubthemeName = '';
     }
   }
+
+  addWord(): void {
+    if (this.newWordName && this.currentTheme) {
+      this.currentTheme.topics.push(this.newWordName);
+      this.newWordName = '';
+    }
+  }
+
+  deleteTheme(theme: Theme): void {
+    this.themes = this.themes.filter(t => t !== theme);
+    if (this.currentTheme === theme) {
+      this.clearCurrentTheme();
+    }
+  }
+
+  deleteSubtheme(index: number): void {
+    if (this.currentTheme) {
+      this.currentTheme.topics.splice(index, 1);
+    }
+  }
 }
+

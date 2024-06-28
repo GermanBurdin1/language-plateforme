@@ -68,18 +68,18 @@
     }
   }
 
-  .add-theme, .add-subtheme {
+  .add-theme, .add-subtheme, .add-word {
     margin-top: 20px;
   }
 
-  .add-theme input, .add-subtheme input {
+  .add-theme input, .add-subtheme input, .add-word input {
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
 
-  .add-theme button, .add-subtheme button {
+  .add-theme button, .add-subtheme button, .add-word button {
     padding: 10px 20px;
     background-color: #1976d2;
     color: white;
@@ -89,7 +89,7 @@
     transition: background-color 0.3s;
   }
 
-  .add-theme button:hover, .add-subtheme button:hover {
+  .add-theme button:hover, .add-subtheme button:hover, .add-word button:hover {
     background-color: #155a9a;
   }
 }
@@ -139,5 +139,20 @@
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
       }
     }
+  }
+}
+
+button {
+  margin-left: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #c0392b;
   }
 }

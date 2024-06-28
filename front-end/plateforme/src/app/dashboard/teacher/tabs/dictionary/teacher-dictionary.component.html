@@ -2,8 +2,11 @@
   <div class="themes-list">
     <h2 (click)="toggleThemes()">Themes</h2>
     <ul>
-      <li *ngFor="let theme of getFilteredThemes()" [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
-        {{ theme.name }}
+      <li *ngFor="let theme of getFilteredThemes()">
+        <span [ngClass]="getClassForTopic(theme)" (click)="selectTheme(theme)">
+          {{ theme.name }}
+        </span>
+        <button (click)="deleteTheme(theme)">Delete</button>
       </li>
     </ul>
     <div class="add-theme">
@@ -19,7 +22,7 @@
     <h2>{{ currentTheme.name }}</h2>
     <button class="back-button" (click)="clearCurrentTheme()">Back</button>
     <ul>
-      <ng-container *ngFor="let topic of currentTheme.topics">
+      <ng-container *ngFor="let topic of currentTheme.topics; let i = index">
         <li [ngClass]="getClassForTopic(topic)"
             [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800', 'position': 'relative', 'padding-right': '40px'} : {}"
             (click)="onTopicClick(topic)">
@@ -27,6 +30,7 @@
           <span *ngIf="isTheme(topic)" [ngStyle]="{'position': 'absolute', 'right': '10px', 'color': '#ff9800', 'font-weight': 'bold'}">
             {{ getSubthemeCount(topic) }} items
           </span>
+          <button (click)="deleteSubtheme(i)">Delete</button>
         </li>
       </ng-container>
     </ul>
@@ -37,6 +41,12 @@
         <button type="submit">Add Subtheme</button>
       </form>
     </div>
+    <div class="add-word" *ngIf="currentTheme">
+      <h3>Add New Word</h3>
+      <form (ngSubmit)="addWord()">
+        <input [(ngModel)]="newWordName" name="newWordName" placeholder="New Word Name" required />
+        <button type="submit">Add Word</button>
+      </form>
+    </div>
   </div>
 </div>
-
