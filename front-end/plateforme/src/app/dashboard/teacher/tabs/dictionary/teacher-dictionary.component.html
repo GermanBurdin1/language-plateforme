@@ -14,10 +14,12 @@
     <ul>
       <ng-container *ngFor="let topic of currentTheme.topics">
         <li [ngClass]="getClassForTopic(topic)"
-            [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800'} : {}"
+            [ngStyle]="isTheme(topic) ? {'background-color': '#ffecb3', 'border-left-color': '#ff9800', 'position': 'relative', 'padding-right': '40px'} : {}"
             (click)="onTopicClick(topic)">
           {{ isTheme(topic) ? topic.name : topic }}
-          <span *ngIf="isTheme(topic)" class="sub-theme-count">{{ getSubthemeCount(topic) }} items</span>
+          <span *ngIf="isTheme(topic)" [ngStyle]="{'position': 'absolute', 'right': '10px', 'color': '#ff9800', 'font-weight': 'bold'}">
+            {{ getSubthemeCount(topic) }} items
+          </span>
         </li>
       </ng-container>
     </ul>
