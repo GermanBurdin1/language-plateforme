@@ -59,7 +59,7 @@ export class TeacherDictionaryComponent {
 
   toggleThemes(): void {
     if (this.isRoot) {
-      this.currentTheme = { name: 'Root', topics: this.themes };
+      this.currentTheme = { name: 'Root', topics: this.sortThemes(this.themes) };
     } else {
       this.currentTheme = null;
       this.previousThemes = [];
@@ -69,7 +69,7 @@ export class TeacherDictionaryComponent {
 
   selectTheme(theme: Theme): void {
     this.themeStack.push(this.currentTheme as Theme);
-    this.currentTheme = theme;
+    this.currentTheme = { ...theme, topics: this.sortThemes(theme.topics) };
   }
 
   goBack(): void {
@@ -78,5 +78,33 @@ export class TeacherDictionaryComponent {
 
   isTheme(topic: any): topic is Theme {
     return (topic as Theme).name !== undefined && (topic as Theme).topics !== undefined;
+  }
+
+  getSubthemeCount(topic: Theme): number {
+    return topic.topics.length;
+  }
+
+  sortThemes(themes: (string | Theme)[]): (string | Theme)[] {
+    return themes.sort((a, b) => {
+      if (this.isTheme(a) && this.isTheme(b)) {
+        return this.getSubthemeCount(b) - this.getSubthemeCount(a);
+      }
+      if (this.isTheme(a)) return -1;
+      if (this.isTheme(b)) return 1;
+      return 0;
+    });
+  }
+
+  getClassForTopic(topic: Theme | string): string {
+    if (this.isTheme(topic)) {
+      return 'sub-theme';
+    }
+    return '';
+  }
+
+  onTopicClick(topic: Theme | string): void {
+    if (this.isTheme(topic)) {
+      this.selectTheme(topic);
+    }
   }
 }
