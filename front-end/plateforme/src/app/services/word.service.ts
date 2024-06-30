@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Word } from '../models/word.model';  // Импортируем модель
+import { Word } from '../models/word.model';
 
 @Injectable({
   providedIn: 'root',

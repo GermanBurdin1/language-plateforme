@@ -16,7 +16,6 @@ export class PersonalCabinetComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Получаем токен из сервиса аутентификации
     this.token = this.authService.getToken();
     if (this.token) {
       this.authService.getUserName(this.token).subscribe({

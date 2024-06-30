@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(12), passwordComplexityValidator()]],
       name: ['', Validators.required],
 
-      role: ['', Validators.required] // Добавляем валидацию на обязательное поле
+      role: ['', Validators.required]
     });
   }
 
@@ -80,15 +80,14 @@ export class RegisterComponent implements OnInit {
     this.attemptedSubmit = true;
 
 
-    console.log('Валидность формы:', this.registerForm.valid);
-    console.log('Форма имеет ошибки:', this.registerForm.errors);
+    console.log('validité du formulaire:', this.registerForm.valid);
+    console.log('formulaire a des erreurs:', this.registerForm.errors);
 
-  // Перед условием проверки на существование email и login
-  console.log('Email существует:', this.emailExists);
-  console.log('Login существует:', this.loginExists);
+  console.log('Email existe:', this.emailExists);
+  console.log('Login existe:', this.loginExists);
 
   if (this.registerForm.invalid) {
-    console.error('Форма невалидна');
+    console.error('Formulaire non valide');
     return;
     }
     if (this.registerForm.valid && !this.emailExists && !this.loginExists) {
@@ -103,12 +102,12 @@ export class RegisterComponent implements OnInit {
       this.authService.register(formData).subscribe({
         next: (response) => {
           if (response === null) {
-            console.error('Ответ сервера null');
+            console.error('Réponse du serveur null');
           } else if (response.error) {
             if (response.error === 'Such an email already exists, please use another email.') {
               this.emailExists = true;
             } else {
-              console.error('Ошибка:', response.error);
+              console.error('Erreur:', response.error);
             }
           } else {
 
@@ -117,7 +116,7 @@ export class RegisterComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.error('Ошибка при обращении к серверу:', err);
+          console.error('Erreur lors de la communication avec le serveur:', err);
         }
       });
 

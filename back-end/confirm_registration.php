@@ -1,14 +1,12 @@
-<!-- <?php
+<?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['e_mail'])) {
-    // Фильтрация и очистка полученных данных
     $email = filter_var($_POST['e_mail'], FILTER_SANITIZE_EMAIL);
     
-    // Создаем новый экземпляр PHPMailer
     $mail = new PHPMailer(true);
 
     try {
@@ -23,19 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['e_mail'])) {
         
         // Recipients
         $mail->setFrom('your_email@example.com', 'Your Name');
-        $mail->addAddress($email); // Добавляем получателя
+        $mail->addAddress($email); 
 
-        // Генерация токена и подготовка тела письма
-        $verificationToken = bin2hex(random_bytes(16)); // Генерируем уникальный токен
-        $mail->isHTML(true); // Устанавливаем формат письма как HTML
-        $mail->Subject = 'Подтверждение регистрации';
-        $mail->Body = "Для завершения регистрации, пожалуйста, перейдите по следующей ссылке: http://example.com/verify.php?token={$verificationToken}";
+        $verificationToken = bin2hex(random_bytes(16)); 
+        $mail->isHTML(true); 
+        $mail->Subject = 'Confirmation d\'inscription';
+        $mail->Body = "Pour finaliser l\'inscription, veuillez suivre le lien suivant: http://example.com/verify.php?token={$verificationToken}";
         $mail->send();
-        echo 'Сообщение было отправлено.';
+        echo 'Le message n\'a pas été envoyé.';
     } catch (Exception $e) {
-        echo "Сообщение не было отправлено. Ошибка: {$mail->ErrorInfo}";
+        echo "Le message n_\'a pas été envoyé. Erreur: {$mail->ErrorInfo}";
     }
 } else {
-    echo 'Ошибка: Email не предоставлен.';
+    echo 'Erreur : Email non fourni';
 }
-?> -->
+?> 

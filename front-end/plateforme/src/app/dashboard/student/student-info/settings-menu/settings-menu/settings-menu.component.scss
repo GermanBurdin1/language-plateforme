@@ -1,29 +1,29 @@
 .vertical-menu {
-  background-color: #f8f9fa; /* фоновый цвет меню */
-  width: auto; /* ширина по содержимому */
-  min-width: 150px; /* минимальная ширина, если содержимое слишком короткое */
-  max-width: 300px; /* максимальная ширина, чтобы избежать слишком длинных строк */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* тень для всплывающего эффекта */
-  position: fixed; /* фиксированное позиционирование */
-  top: 0; /* прижать к верху */
-  right: 0; /* прижать к правому краю */
-  height: 100%; /* высота во весь экран */
-  overflow-y: auto; /* прокрутка по вертикали, если содержимое не умещается */
-  z-index: 1000; /* убедитесь, что меню будет поверх других элементов */
+  background-color: #f8f9fa;
+  width: auto;
+  min-width: 150px;
+  max-width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .vertical-menu ul {
-  list-style-type: none; /* убрать стандартные маркеры списка */
+  list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
 .vertical-menu li {
-  padding: 15px; /* отступы для элементов списка */
-  border-bottom: 1px solid #ddd; /* граница между элементами списка */
-  cursor: pointer; /* курсор в виде указателя для интерактивности */
-  white-space: nowrap; /* текст не переносится на новую строку */
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  white-space: nowrap;
   &:hover {
-    background-color: #ececec; /* цвет фона при наведении */
+    background-color: #ececec;
   }
 }

@@ -58,7 +58,7 @@ export class StudentLessonsComponent implements OnInit {
   bookLesson(teacher: Person, date: string, time: string) {
     const bookingData = {
       teacher_id: teacher.id,
-      student_id: 1, // Пример: идентификатор текущего студента
+      student_id: 1,
       lesson_time: `${date} ${time}`
     };
 

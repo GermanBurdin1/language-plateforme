@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Форма логина валидна, отправка запроса на сервер');
+      console.log('Le formulaire de connexion est valide, envoi de la demande au serveur');
       this.authService.login(
         this.loginForm.value.email,
         this.loginForm.value.password
@@ -31,39 +31,39 @@ export class LoginComponent implements OnInit {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             const token = localStorage.getItem('token');
-            console.log('Получен токен:', token);
+            console.log('Jeton reçu :', token);
             if (token) {
               this.authService.getUserRole(token).subscribe({
                 next: (roleResponse) => {
                   const role = roleResponse.role.trim().toLowerCase();
-                  console.log('Получена роль пользователя:', role);
+                  console.log('Rôle de l’utilisateur reçu :', role);
                   if (role === 'student') {
-                    console.log('Перенаправление на /dashboard-student');
+                    console.log('Redirection vers /dashboard-student');
                     this.router.navigate(['/dashboard-student']);
                   } else if (role === 'teacher') {
-                    console.log('Перенаправление на /dashboard-teacher');
+                    console.log('Redirection vers /dashboard-teacher');
                     this.router.navigate(['/dashboard-teacher']);
                   } else {
-                    console.error('Неизвестная роль:', role);
+                    console.error('Rôle inconnu :', role);
                   }
                 },
                 error: (err) => {
-                  console.error('Ошибка при получении роли пользователя:', err);
+                  console.error('Erreur lors de la récupération du rôle de l’utilisateur :', err);
                 }
               });
             } else {
-              console.error('Токен отсутствует после логина');
+              console.error('Jeton absent après la connexion');
             }
           } else {
-            console.error('Неизвестная или отсутствующая роль');
+            console.error('Rôle inconnu ou absent');
           }
         },
         error: (err) => {
-          console.error('Ошибка при логине:', err);
+          console.error('Erreur lors de la connexion :', err);
         }
       });
     } else {
-      console.error('Форма логина невалидна');
+      console.error('Le formulaire de connexion est invalide');
     }
   }
 }

@@ -13,18 +13,14 @@ export class SettingsMenuComponent {
 
   openSubSettings(section: string) {
     console.log(`Opening section: ${section}`);
-    this.modalService.close(); // Закрыть текущее меню
-    // Затем открываете нужное модальное окно в зависимости от раздела
+    this.modalService.close();
     switch(section) {
       case 'security':
-        // Открыть модальное окно для настроек безопасности
         break;
       case 'tariffs':
-        // Открыть модальное окно для тарифов обучения
         break;
       case 'studentSettings':
         console.log('Opening StudentSettingsComponent');
-        // Открыть модальное окно для настроек аккаунта и внешнего вида
         this.modalService.open(StudentSettingsComponent, { size: 'lg' });
         break;
     }

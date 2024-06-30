@@ -10,7 +10,6 @@ export class DashboardStudentComponent {
   constructor(private modalService: ModalService) {}
 
   openSettingsModal() {
-    // Вызов метода open для открытия модального окна настроек студента
     this.modalService.open(SettingsMenuComponent, { size: 'lg' });
   }
 }

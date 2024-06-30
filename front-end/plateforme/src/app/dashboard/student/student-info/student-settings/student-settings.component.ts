@@ -31,11 +31,10 @@ export class StudentSettingsComponent {
   };
     console.log(userId);
     console.log('Saving changes', this.student);
-    // Используем сервис для отправки данных на сервер
     this.studentProfileService.createOrUpdateProfile(profileStudentData).subscribe({
       next: (response) => {
         console.log('Profile created or updated successfully', response);
-        this.activeModal.close('Save click'); // Закрываем модальное окно после успешного сохранения
+        this.activeModal.close('Save click');
       },
       error: (error) => {
         console.error('Error creating or updating profile', error);

@@ -66,7 +66,7 @@ export class TeacherLessonsComponent implements OnInit {
   loadTeacherAvailability(teacherId: number) {
     this.http.get<Availability[]>(`http://learn-lang-platform.local/back-end/api/getTeacherAvailability.php?teacher_id=${teacherId}`).subscribe({
       next: (data) => {
-        console.log('Teacher Availability:', data); // Отладочный вывод
+        console.log('Teacher Availability:', data);
         this.teacherAvailability = data;
       },
       error: (error) => {
@@ -78,7 +78,7 @@ export class TeacherLessonsComponent implements OnInit {
 
   addAvailability() {
     const availabilityData = {
-      teacher_id: 1,  // Пример: идентификатор текущего преподавателя
+      teacher_id: 1,
       available_date: this.newAvailability.date,
       available_time: this.newAvailability.time
     };
@@ -86,7 +86,7 @@ export class TeacherLessonsComponent implements OnInit {
     this.http.post('http://learn-lang-platform.local/back-end/api/addAvailability.php', availabilityData).subscribe({
       next: (response) => {
         this.openConfirmationDialog('Availability added successfully!');
-        this.loadTeacherAvailability(1); // Перезагружаем доступность преподавателя после добавления
+        this.loadTeacherAvailability(1);
       },
       error: (error) => {
         console.error('Error adding availability', error);

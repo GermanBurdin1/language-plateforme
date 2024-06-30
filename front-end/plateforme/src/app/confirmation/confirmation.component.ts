@@ -14,20 +14,17 @@ export class ConfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Подписываемся на Observable, чтобы получить роль
-    const token = this.authService.getToken(); // Получаем токен
+    const token = this.authService.getToken();
     if (token) {
       this.authService.getUserRole(token).subscribe({
       next: (role) => {
-        // Задержка или ожидание подтверждения пользователем
         setTimeout(() => {
-          // Редирект на соответствующий дашборд
           if (role === 'student') {
             this.router.navigate(['/student-dashboard']);
           } else if (role === 'teacher') {
             this.router.navigate(['/teacher-dashboard']);
           }
-        }, 3000); // 3 секунды для примера, можно заменить на другую логику
+        }, 3000);
       },
       error: (err) => {
         console.error('Error fetching user role', err);

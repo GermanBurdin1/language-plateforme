@@ -11,9 +11,8 @@
   <li class="nav-item">
     <a class="nav-link" routerLink="/dashboard-student/settings" routerLinkActive="active">Settings</a>
   </li>
-  <!-- Исправлено для вызова метода openSettingsModal при клике -->
   <button type="button" class="btn btn-primary rounded-circle position-fixed" style="right: 20px; top: 20px; width: 50px; height: 50px; z-index: 1050;" (click)="openSettingsModal()">
-    <i class="fas fa-cog"></i> <!-- Иконка настроек -->
+    <i class="fas fa-cog"></i>
   </button>
 </ul>
 <router-outlet></router-outlet>

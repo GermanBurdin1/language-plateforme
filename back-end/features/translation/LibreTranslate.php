@@ -17,7 +17,7 @@ class LibreTranslate {
 					CURLOPT_POSTFIELDS => http_build_query($data),
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_HTTPHEADER => array('Content-Type: application/x-www-form-urlencoded'),
-					CURLOPT_CAINFO => $this->certPath // Добавляем путь к файлу сертификата
+					CURLOPT_CAINFO => $this->certPath 
 			);
 
 			$ch = curl_init();

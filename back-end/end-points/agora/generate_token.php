@@ -1,6 +1,6 @@
 <?php
-header('Access-Control-Allow-Origin: *'); // Это разрешит доступ с любого домена
-header('Content-Type: application/json'); // Указываем, что ответ будет в формате JSON
+header('Access-Control-Allow-Origin: *'); 
+header('Content-Type: application/json'); 
 
 use BoogieFromZk\AgoraToken\RtcTokenBuilder;
 
@@ -10,9 +10,9 @@ require_once __DIR__ . '../../../../back-end/vendor/autoload.php';
 $appId = 'a020b374553e4fac80325223fba38531';
 $appCertificate = '1952a57a7c4c4f93b579dd2e073a1218';
 $channelName = 'rtc_token';
-$uid = 0; // Установите 0 для использования временного uid в токене
+$uid = 0; 
 $role = RtcTokenBuilder::RoleAttendee;
-$expireTimeInSeconds = 36000; // Время жизни токена, например 1 час
+$expireTimeInSeconds = 36000; 
 $currentTimestamp = (new \DateTime("now", new \DateTimeZone('UTC')))->getTimestamp();
 $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
 

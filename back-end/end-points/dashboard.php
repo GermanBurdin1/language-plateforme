@@ -1,28 +1,26 @@
 <?php
-require 'db.php'; // Подключение к базе данных
+require 'db.php'; 
 require 'vendor/autoload.php';
 use Firebase\JWT\JWT;
 
 header('Content-Type: application/json');
 
-// Получаем токен из заголовка Authorization
 $authHeader = getallheaders()['Authorization'] ?? '';
-$jwt = str_replace('Bearer ', '', $authHeader); // Обрезаем префикс 'Bearer '
+$jwt = str_replace('Bearer ', '', $authHeader); 
 
 try {
     if ($jwt) {
-        $key = 'Jefjimfu09!'; // Ваш секретный ключ для JWT
+        $key = 'Jefjimfu09!'; 
         $decoded = JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
 
-        $userId = $decoded->sub; // 'sub' содержит идентификатор пользователя
+        $userId = $decoded->sub; 
 
-        // Получаем данные пользователя из базы данных
         $stmt = $pdo->prepare("SELECT * FROM person WHERE id = :userId");
         $stmt->execute([':userId' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            unset($user['password']); // Удаляем пароль из данных перед отправкой
+            unset($user['password']); 
             echo json_encode(['dashboardData' => $user]);
         } else {
             http_response_code(404);
@@ -41,11 +39,3 @@ try {
 }
 ?>
 
-<!-- Этот код делает следующее:
-
-Извлекает JWT из заголовка авторизации.
-Декодирует JWT, используя ваш секретный ключ, и получает идентификатор пользователя.
-Использует идентификатор пользователя для извлечения его данных из базы данных.
-Возвращает данные пользователя в формате JSON, за исключением пароля. -->
-
-<!-- В предоставленном коде dashboard.php, JWT не генерируется, а скорее ВАЛИДИРУЕТСЯ И ИСПОЛЬЗУЕТСЯ для аутентификации пользователя и авторизации доступа к данным рабочего кабинета.  -->

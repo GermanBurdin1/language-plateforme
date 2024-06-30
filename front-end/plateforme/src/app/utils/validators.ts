@@ -37,12 +37,12 @@ export function emailUniqueValidator(checkEmailExistence: (e_mail: string) => Ob
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     const e_mail = control.value;
     if (!e_mail) {
-      return of(null); // Если поле пустое, не выполняем проверку
+      return of(null);
     }
 
-    // Выполняем запрос к серверу, чтобы проверить уникальность e-mail
+
     return checkEmailExistence(e_mail).pipe(
-      map(exists => (exists ? { emailExists: true } : null)), // Если e-mail уже существует, возвращаем ошибку
+      map(exists => (exists ? { emailExists: true } : null)),
       catchError(() => of(null))
     );
   };
@@ -52,12 +52,11 @@ export function loginUniqueValidator(checkLoginExistence: (login: string) => Obs
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     const login = control.value;
     if (!login) {
-      return of(null); // Если поле пустое, не выполняем проверку
+      return of(null);
     }
 
-    // Выполняем запрос к серверу, чтобы проверить уникальность login
     return checkLoginExistence(login).pipe(
-      map(exists => (exists ? { loginExists: true } : null)), // Если login уже существует, возвращаем ошибку
+      map(exists => (exists ? { loginExists: true } : null)),
       catchError(() => of(null))
     );
   };
